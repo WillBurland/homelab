@@ -4,10 +4,12 @@ services:
     image: fallenbagel/jellyseerr:latest
     container_name: jellyseerr
     environment:
-      - LOG_LEVEL=debug
-      - TZ=Asia/Tashkent
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      LOG_LEVEL: debug
     ports:
       - 5055:5055
     volumes:
-      - /path/to/appdata/config:/app/config
+      - ${CONFIG_ROOT}/jellyseerr/config:/app/config
     restart: unless-stopped

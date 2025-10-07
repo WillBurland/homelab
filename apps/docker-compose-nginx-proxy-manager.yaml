@@ -1,16 +1,17 @@
 name: nginx-proxy-manager
 services:
   app:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
     ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+      - 80:80
+      - 81:81
+      - 443:443
     volumes:
-      - data:/data
-      - letsencrypt:/etc/letsencrypt
-
-volumes:
-  data:
-  letsencrypt:
+      - ${CONFIG_ROOT}/nginx-proxy-manager/data:/data
+      - ${CONFIG_ROOT}/nginx-proxy-manager/data/letsencrypt:/data
+    restart: unless-stopped

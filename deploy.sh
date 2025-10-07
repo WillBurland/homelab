@@ -13,9 +13,16 @@ echo "[*] All images pulled successfully."
 
 echo "[*] Deploying stacks..."
 for compose_file in "$APPS_DIR"/*.yaml; do
-	app_name=$(basename "$compose_file" .yaml)
+	filename=$(basename "$compose_file" .yaml)
+	app_name="${filename#docker-compose-}"
 
 	config_dir="$CONFIG_ROOT/$app_name/config"
+	if [[ ! -d "$config_dir" ]]; then
+		mkdir -p "$config_dir"
+		chown -R 1000:1000 "$config_dir"
+	fi
+
+	config_dir="$CONFIG_ROOT/$app_name/data"
 	if [[ ! -d "$config_dir" ]]; then
 		mkdir -p "$config_dir"
 		chown -R 1000:1000 "$config_dir"

@@ -4,12 +4,11 @@ services:
     image: jellyfin/jellyfin:latest
     container_name: jellyfin
     environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - /path/to/config:/config
-      - /path/to/media:/media
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
     ports:
-      - "8096:8096"
+      - 8096:8096
+    volumes:
+      - ${CONFIG_ROOT}/jellyfin/config:/config
     restart: unless-stopped

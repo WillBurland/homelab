@@ -3,8 +3,12 @@ services:
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
     ports:
-      - "83:80"
+      - 83:80
     volumes:
-      - /vw-data/:/data/
+      - ${CONFIG_ROOT}/vaultwarden/data:/data/
     restart: unless-stopped
