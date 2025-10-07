@@ -1,0 +1,6 @@
+name: cloudflared
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate --hello-world
+    restart: unless-stopped
