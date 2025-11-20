@@ -127,7 +127,7 @@ services:
       - ${NGINX_PORT_UI}:81
     volumes:
       - ${CONFIG_ROOT}/nginx-proxy-manager/data:/data
-      - ${CONFIG_ROOT}/nginx-proxy-manager/data/letsencrypt:/data
+      - ${CONFIG_ROOT}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
 
   pihole:
     image: pihole/pihole:latest
@@ -135,7 +135,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
-      FTLCONF_webserver_api_password: "correct horse battery staple"
+      FTLCONF_webserver_api_password: ${PIHOLE_API_KEY}
     ports:
       - ${PIHOLE_PORT_DNS}:53
       - ${PIHOLE_PORT_DNS}:53/udp

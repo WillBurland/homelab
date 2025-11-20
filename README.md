@@ -22,6 +22,7 @@
 ### Networking
 
 - Cloudflared
+- Flaresolverr
 - Pi-Hole
 - Nginx Proxy Manager
 
