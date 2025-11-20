@@ -1,0 +1,258 @@
+x-common-env: &common_env
+  PUID: ${PUID}c
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+name: homelab
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      <<: *common_env
+    ports:
+      - 6767:6767
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/bazarr/config:/config
+      - ${NAS}:/mnt
+    restart: unless-stopped
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    environment:
+      <<: *common_env
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
+    networks:
+      - shared_network
+    restart: unless-stopped
+    command: tunnel run
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      <<: *common_env
+      LOG_LEVEL: info
+      LOG_HTML: false
+      CAPTCHA_SOLVER: none
+    ports:
+      - 8191:8191
+    networks:
+      - shared_network
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      <<: *common_env
+    ports:
+      - 3000:3000
+    networks:
+      - shared_network
+    restart: unless-stopped
+
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      <<: *common_env
+      HOMEPAGE_ALLOWED_HOSTS: localhost:3002
+    ports:
+      - 3002:3000
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/homepage/config:/app/config
+      - ${NAS}:/mnt/NAS
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    environment:
+      <<: *common_env
+      AUTO_UPDATE: true
+      RUN_OPTS:
+    ports:
+      - 9117:9117
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/jackett/config:/config
+    restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      <<: *common_env
+    ports:
+      - 8096:8096
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/jellyfin/config:/config
+      - ${NAS}/Data:/data
+    restart: unless-stopped
+
+  komga:
+    image: gotson/komga
+    container_name: komga
+    environment:
+      <<: *common_env
+    ports:
+      - 25600:25600
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/komga/config:/config
+      - ${CONFIG_ROOT}/komga/data:/data
+    restart: unless-stopped
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    environment:
+      <<: *common_env
+    ports:
+      - 80:80
+      - 81:81
+      - 443:443
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/nginx-proxy-manager/data:/data
+      - ${CONFIG_ROOT}/nginx-proxy-manager/data/letsencrypt:/data
+    restart: unless-stopped
+
+  pihole:
+    image: pihole/pihole:latest
+    container_name: pihole
+    environment:
+      <<: *common_env
+      FTLCONF_webserver_api_password: 'correct horse battery staple'
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 82:82
+      - 444:443
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/pihole/data:/etc/pihole
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    environment:
+      <<: *common_env
+    ports:
+      - 9090:9090
+    networks:
+      - shared_network
+    restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      <<: *common_env
+      WEBUI_PORT: 8080
+      TORRENTING_PORT: 6881
+    ports:
+      - 8080:8080
+      - 6881:6881
+      - 6881:6881/udp
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/qbittorrent/config:/config
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      <<: *common_env
+    ports:
+      - 7878:7878
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/radarr/config:/config
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      <<: *common_env
+    ports:
+      - 8989:8989
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/sonarr/config:/config
+    restart: unless-stopped
+
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    environment:
+      <<: *common_env
+    ports:
+      - 8385:8384
+      - 22001:22000
+      - 22001:22000/udp
+      - 21028:21027/udp
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/syncthing/config:/config
+    restart: unless-stopped
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    environment:
+      <<: *common_env
+    ports:
+      - 3001:3001
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/uptime-kuma/data:/app/data
+    restart: unless-stopped
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    environment:
+      <<: *common_env
+    ports:
+      - 83:80
+    networks:
+      - shared_network
+    volumes:
+      - ${CONFIG_ROOT}/vaultwarden/data:/data
+    restart: unless-stopped
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    environment:
+      <<: *common_env
+    networks:
+      - shared_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+networks:
+  shared_network:
