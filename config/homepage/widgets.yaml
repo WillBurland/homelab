@@ -1,0 +1,7 @@
+- resources:
+    cpu: true
+    cputemp: true
+    memory: true
+    disk:
+        - /mnt
+        - /

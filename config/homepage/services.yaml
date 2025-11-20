@@ -1,0 +1,164 @@
+- Services:
+    - Jellyfin:
+        icon: jellyfin.png
+        href: https://${JELLYFIN_DOMAIN}
+        description: Movies & TV
+        widget:
+            type: jellyfin
+            url: http://${SERVER_IP}:${JELLYFIN_PORT}
+            key: ${JELLYFIN_KEY}
+            fields: ["movies", "series", "episodes"]
+            enableBlocks: true
+            enableNowPlaying: true
+            enableUser: true
+            showEpisodeNumber: true
+            expandOneStreamToTwoRows: false
+
+    - Jellyseerr:
+        icon: jellyseerr.png
+        description: Request Manager For Jellyfin
+        href: https://${JELLYSEERR_DOMAIN}
+        widget:
+            type: jellyseerr
+            url: http://${SERVER_IP}:${JELLYSEERR_PORT}
+            key: ${JELLYSEERR_KEY}
+            fields: ["pending", "available"]
+
+    - Komga:
+        icon: komga.png
+        description: Manga & Comics
+        href: https://${KOMGA_DOMAIN}
+        widget:
+            type: komga
+            url: http://${SERVER_IP}:${KOMGA_PORT}
+            username: ${KOMGA_USERNAME}
+            password: ${KOMGA_PASSWORD}
+
+- Admin:
+    - System:
+        - TrueNAS:
+            icon: truenas.png
+            href: https://${TRUENAS_DOMAIN}
+            description: TrueNAS WebUI
+            widget:
+                type: truenas
+                url: https://${SERVER_IP}:${TRUENAS_PORT_HTTPS}
+                username: ${TRUENAS_USERNAME}
+                password: ${TRUENAS_PASSWORD}
+                enablePools: true
+                nasType: scale
+
+        - Pi-Hole:
+            icon: pi-hole.png
+            href: https://${PIHOLE_DOMAIN}
+            description: DNS Filtering
+            widget:
+                type: pihole
+                url: http://${SERVER_IP}:${PIHOLE_PORT_HTTPS_UI}
+                version: 6
+
+        - Portainer:
+            icon: portainer.png
+            href: https://${PORTAINER_DOMAIN}
+            description: Docker Management
+            widget:
+                type: portainer
+                url: https://${SERVER_IP}:${PORTAINER_PORT}
+                env: 3
+                key: ${PORTAINER_KEY}
+
+        - Nginx Proxy Manager:
+            icon: nginx.png
+            href: https://${NGINX_DOMAIN}
+            description: Reverse Proxy & SSL Management
+            widget:
+                type: npm
+                url: http://${SERVER_IP}:${NGINX_PORT_HTTPS}
+                username: ${NGINX_USERNAME}
+                password: ${NGINX_PASSWORD}
+
+        - Uptime Kuma:
+            icon: uptime-kuma.png
+            href: https://${UPTIME_KUMA_DOMAIN}
+            description: Status & Uptime Monitoring
+            widget:
+                type: uptimekuma
+                url: http://${SERVER_IP}:${UPTIME_KUMA_PORT}
+                slug: berlin
+
+        - Prometheus:
+            icon: prometheus.png
+            href: https://${PROMETHEUS_DOMAIN}
+            description: System Monitoring & Data Collection
+            widget:
+                type: prometheus
+                url: http://${SERVER_IP}:${PROMETHEUS_PORT}
+
+        - Grafana:
+            icon: grafana.png
+            href: https://${GRAFANA_DOMAIN}
+            description: System Monitoring Dashboards
+            widget:
+                type: grafana
+                version: 2
+                url: http://${SERVER_IP}:${GRAFANA_PORT}
+                username: ${GRAFANA_USERNAME}
+                password: ${GRAFANA_PASSWORD}
+
+        - Syncthing:
+            icon: syncthing.png
+            description: File Synchronisation
+            href: https://${SYNCTHING_DOMAIN}
+
+        - Vaultwarden:
+            icon: vaultwarden.png
+            description: Password Manager
+            href: https://${VAULTWARDEN_DOMAIN}
+
+    - Media:
+        - Radarr:
+            icon: radarr.png
+            description: Movie Requests
+            href: https://${RADARR_DOMAIN}
+            widget:
+                type: radarr
+                url: http://${SERVER_IP}:${RADARR_PORT}
+                key: ${RADARR_KEY}
+                fields: ["wanted", "queued"]
+
+        - Sonarr:
+            icon: sonarr.png
+            description: TV Requests
+            href: https://${SONARR_DOMAIN}
+            widget:
+                type: sonarr
+                url: http://${SERVER_IP}:${SONARR_PORT}
+                key: ${SONARR_KEY}
+                fields: ["wanted", "queued"]
+
+        - Bazarr:
+            icon: bazarr.png
+            description: Subtitle Finder
+            href: https://${BAZARR_DOMAIN}
+            widget:
+                type: bazarr
+                url: http://${SERVER_IP}:${BAZARR_PORT}
+                key: ${BAZARR_KEY}
+
+        - qBittorrent:
+            icon: qbittorrent.png
+            href: https://${QBITTORRENT_DOMAIN}
+            description: Torrent Downloader
+            widget:
+                type: qbittorrent
+                url: http://${SERVER_IP}:${QBITTORRENT_PORT_UI}
+                username: ${QBITTORRENT_USERNAME}
+                password: ${QBITTORRENT_PASSWORD}
+
+        - Jackett:
+            icon: jackett.png
+            href: https://${JACKETT_DOMAIN}
+            description: Torrent Source Manager
+            widget:
+                type: jackett
+                url: http://${SERVER_IP}:${JACKETT_PORT}
