@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -e
+
+STACK_ROOT="stacks"
+SHARED_NETWORK="homelab_network"
+
+set -a
+[[ -f .env.global ]] && source .env.global
+[[ -f .env.secrets ]] && source .env.secrets
+set +a
+
+if docker network inspect "$SHARED_NETWORK" >/dev/null 2>&1; then
+    echo "Found shared network: $SHARED_NETWORK"
+fi
+
+echo "WARNING: This will remove ALL containers, volumes, and the shared network!"
+read -p "Type 'yes' to continue: " confirm
+if [[ "$confirm" != "yes" ]]; then
+    echo "Aborted."
+    exit 1
+fi
+
+for stack in "$STACK_ROOT"/*; do
+    compose_file="$stack/docker-compose.yaml"
+    env_file="$stack/.env"
+
+    [[ ! -f "$compose_file" ]] && continue
+
+    project_name="$(basename "$stack")"
+    echo
+    echo "Stopping and removing stack: $project_name"
+
+    if [[ -f "$env_file" ]]; then
+        docker compose \
+            --project-name "$project_name" \
+            --env-file "$env_file" \
+            -f "$compose_file" \
+            down --volumes --remove-orphans
+    else
+        docker compose \
+            --project-name "$project_name" \
+            -f "$compose_file" \
+            down --volumes --remove-orphans
+    fi
+done
+
+echo
+echo "Removing all dangling volumes..."
+docker volume prune -f
+
+if docker network inspect "$SHARED_NETWORK" >/dev/null 2>&1; then
+    echo
+    echo "Removing external network: $SHARED_NETWORK"
+    docker network rm "$SHARED_NETWORK"
+fi
+
+echo
+echo "Purge complete."

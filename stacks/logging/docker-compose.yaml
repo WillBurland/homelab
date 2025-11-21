@@ -1,0 +1,44 @@
+x-common-env: &common_env
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+x-common-service: &common_service
+  networks:
+    - homelab_network
+  restart: unless-stopped
+
+name: homelab-logging
+services:
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${GRAFANA_PORT}:3000
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${PROMETHEUS_PORT}:9090
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${UPTIME_KUMA_PORT}:3001
+    volumes:
+      - ${CONFIG_ROOT}/uptime-kuma/data:/app/data
+
+networks:
+  homelab_network:
+    external: true

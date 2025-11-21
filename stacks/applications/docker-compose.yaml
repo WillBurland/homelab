@@ -1,0 +1,54 @@
+x-common-env: &common_env
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+x-common-service: &common_service
+  networks:
+    - homelab_network
+  restart: unless-stopped
+
+name: homelab-applications
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    <<: *common_service
+    environment:
+      <<: *common_env
+      HOMEPAGE_ALLOWED_HOSTS: localhost:3002
+    ports:
+      - ${HOMEPAGE_PORT}:3000
+    volumes:
+      - ${CONFIG_ROOT}/homepage/config:/app/config
+      - ${NAS}:/mnt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${SYNCTHING_PORT_UI}:8384
+      - ${SYNCTHING_PORT_TRAFFIC}:22000
+      - ${SYNCTHING_PORT_TRAFFIC}:22000/udp
+      - ${SYNCTHING_PORT_DISCOVERY}:21027/udp
+    volumes:
+      - ${CONFIG_ROOT}/syncthing/config:/config
+
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${VAULTWARDEN_PORT}:80
+    volumes:
+      - ${CONFIG_ROOT}/vaultwarden/data:/data
+
+networks:
+  homelab_network:
+    external: true

@@ -1,0 +1,113 @@
+x-common-env: &common_env
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+x-common-service: &common_service
+  networks:
+    - homelab_network
+  restart: unless-stopped
+
+name: homelab-media
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${BAZARR_PORT}:6767
+    volumes:
+      - ${CONFIG_ROOT}/bazarr/config:/config
+      - ${NAS}:/mnt
+
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    <<: *common_service
+    environment:
+      <<: *common_env
+      AUTO_UPDATE: true
+      RUN_OPTS:
+    ports:
+      - ${JACKETT_PORT}:9117
+    volumes:
+      - ${CONFIG_ROOT}/jackett/config:/config
+
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${JELLYFIN_PORT}:8096
+    volumes:
+      - ${CONFIG_ROOT}/jellyfin/config:/config
+      - ${NAS}/Data:/data
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
+    <<: *common_service
+    environment:
+      <<: *common_env
+      LOG_LEVEL: debug
+    ports:
+      - ${JELLYSEERR_PORT}:5055
+    volumes:
+      - ${CONFIG_ROOT}/jellyseerr/config:/app/config
+
+  komga:
+    image: gotson/komga
+    container_name: komga
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${KOMGA_PORT}:25600
+    volumes:
+      - ${CONFIG_ROOT}/komga/config:/config
+      - ${CONFIG_ROOT}/komga/data:/data
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    <<: *common_service
+    environment:
+      <<: *common_env
+      WEBUI_PORT: ${QBITTORRENT_PORT_UI}
+      TORRENTING_PORT: ${QBITTORRENT_PORT_TRAFFIC}
+    ports:
+      - ${QBITTORRENT_PORT_UI}:8080
+      - ${QBITTORRENT_PORT_TRAFFIC}:6881
+      - ${QBITTORRENT_PORT_TRAFFIC}:6881/udp
+    volumes:
+      - ${CONFIG_ROOT}/qbittorrent/config:/config
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${RADARR_PORT}:7878
+    volumes:
+      - ${CONFIG_ROOT}/radarr/config:/config
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${SONARR_PORT}:8989
+    volumes:
+      - ${CONFIG_ROOT}/sonarr/config:/config
+
+networks:
+  homelab_network:
+    external: true

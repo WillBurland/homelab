@@ -1,0 +1,37 @@
+x-common-env: &common_env
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+x-common-service: &common_service
+  networks:
+    - homelab_network
+  restart: unless-stopped
+
+name: homelab-system
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${PORTAINER_PORT_TUNNEL}:8000
+      - ${PORTAINER_PORT_UI}:9443
+    volumes:
+      - ${CONFIG_ROOT}/portainer/data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    <<: *common_service
+    environment:
+      <<: *common_env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  homelab_network:
+    external: true
