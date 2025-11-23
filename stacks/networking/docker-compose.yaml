@@ -53,7 +53,6 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
-      FTLCONF_webserver_api_password: ${PIHOLE_API_KEY}
     ports:
       - ${PIHOLE_PORT_DNS}:53
       - ${PIHOLE_PORT_DNS}:53/udp
@@ -61,6 +60,18 @@ services:
       - ${PIHOLE_PORT_HTTPS_UI}:443
     volumes:
       - ${CONFIG_ROOT}/pihole/data:/etc/pihole
+
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    <<: *common_service
+    environment:
+      <<: *common_env
+      TS_AUTHKEY: ${TAILSCALE_AUTHKEY}
+      TS_HOSTNAME: ${SERVER_HOSTNAME}
+      TS_ROUTES: 192.168.0.0/24
+    volumes:
+      - ${CONFIG_ROOT}/tailscale/state:/var/lib/tailscale
 
 networks:
   homelab_network:

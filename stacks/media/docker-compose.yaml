@@ -36,7 +36,7 @@ services:
       - ${CONFIG_ROOT}/jackett/config:/config
 
   jellyfin:
-    image: jellyfin/jellyfin:latest
+    image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     <<: *common_service
     environment:

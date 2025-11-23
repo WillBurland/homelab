@@ -2,36 +2,46 @@
 
 ## Getting started
 
-1. Rename `.env.secrets.template` to `.env.secrets` and add in the relevant keys/logins
-2. `./deploy.sh up -d` to start the stack
-3. `docker compose down` to stop the stack
+1. Deploy the stack with `./stack up all`
+2. Do the basic GUI setup in each container
+3. Rename `.env.secrets.template` to `.env.secrets` and add in the relevant keys/logins
+4. `./stack restart all` to apply the changes
 
-## Containers included
+## Stack ecosystem
+
+### Applications
+
+- Homepage
+- Syncthing
+- Vaultwarden
+
+### Logging
+
+- Grafana
+- Prometheus
+- Uptime Kuma
 
 ### Media
 
+- Bazarr
+- Jackett
 - Jellyfin
 - Jellyseerr
 - Komga
+- qBittorrent
 - Radarr
 - Sonarr
-- Bazarr
-- qBittorrent
-- Jackett
 
 ### Networking
 
 - Cloudflared
 - Flaresolverr
-- Pi-Hole
 - Nginx Proxy Manager
+- Pi-Hole
+- Tailscale
 
 ### System
 
-- Homepage
-- Uptime Kuma
-- Prometheus
-- Grafana
-- Syncthing
-- Vaultwarden
+- Portainer (not included)
+- TrueNAS (not included)
 - Watchtower

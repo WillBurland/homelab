@@ -55,4 +55,8 @@ if docker network inspect "$SHARED_NETWORK" >/dev/null 2>&1; then
 fi
 
 echo
+echo "Removing homelab-docker-data"
+sudo rm -rf /home/will/homelab-docker-data
+
+echo
 echo "Purge complete."
