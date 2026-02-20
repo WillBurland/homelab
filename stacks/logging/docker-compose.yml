@@ -17,6 +17,8 @@ services:
       <<: *common_env
     ports:
       - ${GRAFANA_PORT}:3000
+    volumes:
+      - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
 
   prometheus:
     image: prom/prometheus:latest
