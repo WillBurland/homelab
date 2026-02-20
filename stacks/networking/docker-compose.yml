@@ -15,6 +15,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     volumes:
       - ${CONFIG_ROOT}/cloudflared:/etc/cloudflared
     command: tunnel run
