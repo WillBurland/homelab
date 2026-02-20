@@ -12,18 +12,15 @@ name: homelab-networking
 services:
   cloudflared:
     image: cloudflare/cloudflared:latest
-    container_name: cloudflared
     <<: *common_service
     environment:
       <<: *common_env
-      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
     volumes:
       - ${CONFIG_ROOT}/cloudflared:/etc/cloudflared
     command: tunnel run
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
-    container_name: flaresolverr
     <<: *common_service
     environment:
       <<: *common_env
@@ -35,7 +32,6 @@ services:
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
-    container_name: nginx-proxy-manager
     <<: *common_service
     environment:
       <<: *common_env
@@ -49,7 +45,6 @@ services:
 
   pihole:
     image: pihole/pihole:latest
-    container_name: pihole
     <<: *common_service
     environment:
       <<: *common_env
@@ -63,7 +58,6 @@ services:
 
   tailscale:
     image: tailscale/tailscale:latest
-    container_name: tailscale
     <<: *common_service
     environment:
       <<: *common_env

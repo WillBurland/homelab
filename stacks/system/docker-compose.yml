@@ -12,7 +12,6 @@ name: homelab-system
 services:
   portainer:
     image: portainer/portainer-ce:lts
-    container_name: portainer
     <<: *common_service
     environment:
       <<: *common_env
@@ -21,15 +20,6 @@ services:
       - ${PORTAINER_PORT_UI}:9443
     volumes:
       - ${CONFIG_ROOT}/portainer/data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: watchtower
-    <<: *common_service
-    environment:
-      <<: *common_env
-    volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
 networks:

@@ -12,7 +12,6 @@ name: homelab-media
 services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
     <<: *common_service
     environment:
       <<: *common_env
@@ -24,7 +23,6 @@ services:
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
-    container_name: jackett
     <<: *common_service
     environment:
       <<: *common_env
@@ -37,7 +35,6 @@ services:
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
     <<: *common_service
     environment:
       <<: *common_env
@@ -49,7 +46,6 @@ services:
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
-    container_name: jellyseerr
     <<: *common_service
     environment:
       <<: *common_env
@@ -61,7 +57,6 @@ services:
 
   komga:
     image: gotson/komga
-    container_name: komga
     <<: *common_service
     environment:
       <<: *common_env
@@ -73,7 +68,6 @@ services:
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
-    container_name: qbittorrent
     <<: *common_service
     environment:
       <<: *common_env
@@ -88,7 +82,6 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    container_name: radarr
     <<: *common_service
     environment:
       <<: *common_env
@@ -99,7 +92,6 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
-    container_name: sonarr
     <<: *common_service
     environment:
       <<: *common_env

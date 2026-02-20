@@ -12,7 +12,6 @@ name: homelab-logging
 services:
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
     <<: *common_service
     environment:
       <<: *common_env
@@ -21,7 +20,6 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
-    container_name: prometheus
     <<: *common_service
     environment:
       <<: *common_env
@@ -30,7 +28,6 @@ services:
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
-    container_name: uptime-kuma
     <<: *common_service
     environment:
       <<: *common_env
