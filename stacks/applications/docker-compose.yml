@@ -15,7 +15,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
-      HOMEPAGE_ALLOWED_HOSTS: localhost:3002
+      HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT}
     ports:
       - ${HOMEPAGE_PORT}:3000
     volumes:
