@@ -19,7 +19,7 @@ services:
       - ${BAZARR_PORT}:6767
     volumes:
       - ${CONFIG_ROOT}/bazarr/config:/config
-      - ${NAS}:/mnt
+      - ${NAS}:/mnt/NAS
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -42,7 +42,7 @@ services:
       - ${JELLYFIN_PORT}:8096
     volumes:
       - ${CONFIG_ROOT}/jellyfin/config:/config
-      - ${NAS}/Data:/data
+      - ${NAS}:/mnt/NAS
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
