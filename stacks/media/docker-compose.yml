@@ -35,6 +35,7 @@ services:
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
+    privileged: true
     <<: *common_service
     environment:
       <<: *common_env
@@ -43,6 +44,11 @@ services:
     volumes:
       - ${CONFIG_ROOT}/jellyfin/config:/config
       - ${NAS}:/mnt/NAS
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    group_add:
+      - video
+      - "107"
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
