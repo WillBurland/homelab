@@ -71,6 +71,7 @@ services:
     volumes:
       - ${CONFIG_ROOT}/komga/config:/config
       - ${CONFIG_ROOT}/komga/data:/data
+      - ${NAS}:/mnt/NAS
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -85,6 +86,7 @@ services:
       - ${QBITTORRENT_PORT_TRAFFIC}:6881/udp
     volumes:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
+      - ${APPS}:/mnt/Apps
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -95,6 +97,8 @@ services:
       - ${RADARR_PORT}:7878
     volumes:
       - ${CONFIG_ROOT}/radarr/config:/config
+      - ${NAS}:/mnt/NAS
+      - ${APPS}:/mnt/Apps
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -105,6 +109,8 @@ services:
       - ${SONARR_PORT}:8989
     volumes:
       - ${CONFIG_ROOT}/sonarr/config:/config
+      - ${NAS}:/mnt/NAS
+      - ${APPS}:/mnt/Apps
 
 networks:
   homelab_network:
