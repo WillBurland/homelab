@@ -19,7 +19,12 @@ services:
       - ${BAZARR_PORT}:6767
     volumes:
       - ${CONFIG_ROOT}/bazarr/config:/config
-      - ${NAS}:/mnt/NAS
+      - ${NAS}:${NAS}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.00"
+          memory: "512M"
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -32,6 +37,11 @@ services:
       - ${JACKETT_PORT}:9117
     volumes:
       - ${CONFIG_ROOT}/jackett/config:/config
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -43,12 +53,17 @@ services:
       - ${JELLYFIN_PORT}:8096
     volumes:
       - ${CONFIG_ROOT}/jellyfin/config:/config
-      - ${NAS}:/mnt/NAS
+      - ${NAS}:${NAS}
     devices:
       - /dev/dri/renderD128:/dev/dri/renderD128
     group_add:
       - video
       - "107"
+    deploy:
+      resources:
+        limits:
+          cpus: "6.00"
+          memory: "4G"
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -60,18 +75,29 @@ services:
       - ${JELLYSEERR_PORT}:5055
     volumes:
       - ${CONFIG_ROOT}/jellyseerr/config:/app/config
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
   komga:
     image: gotson/komga
     <<: *common_service
     environment:
       <<: *common_env
+      JAVA_TOOL_OPTIONS: -Xmx1g
     ports:
       - ${KOMGA_PORT}:25600
     volumes:
       - ${CONFIG_ROOT}/komga/config:/config
       - ${CONFIG_ROOT}/komga/data:/data
-      - ${NAS}:/mnt/NAS
+      - ${NAS}:${NAS}
+    deploy:
+      resources:
+        limits:
+          cpus: "4.00"
+          memory: "2G"
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -86,7 +112,12 @@ services:
       - ${QBITTORRENT_PORT_TRAFFIC}:6881/udp
     volumes:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
-      - ${APPS}:/mnt/Apps
+      - ${APPS}:${APPS}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.00"
+          memory: "1G"
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -97,8 +128,13 @@ services:
       - ${RADARR_PORT}:7878
     volumes:
       - ${CONFIG_ROOT}/radarr/config:/config
-      - ${NAS}:/mnt/NAS
-      - ${APPS}:/mnt/Apps
+      - ${NAS}:${NAS}
+      - ${APPS}:${APPS}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.00"
+          memory: "2G"
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -109,8 +145,13 @@ services:
       - ${SONARR_PORT}:8989
     volumes:
       - ${CONFIG_ROOT}/sonarr/config:/config
-      - ${NAS}:/mnt/NAS
-      - ${APPS}:/mnt/Apps
+      - ${NAS}:${NAS}
+      - ${APPS}:${APPS}
+    deploy:
+      resources:
+        limits:
+          cpus: "2.00"
+          memory: "2G"
 
 networks:
   homelab_network:

@@ -20,8 +20,13 @@ services:
       - ${HOMEPAGE_PORT}:3000
     volumes:
       - ${CONFIG_ROOT}/homepage/config:/app/config
-      - ${NAS}:/mnt/NAS
+      - ${NAS}:${NAS}
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
@@ -35,6 +40,11 @@ services:
       - ${SYNCTHING_PORT_DISCOVERY}:21027/udp
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
+    deploy:
+      resources:
+        limits:
+          cpus: "2.00"
+          memory: "512M"
 
   vaultwarden:
     image: vaultwarden/server:latest
@@ -45,6 +55,11 @@ services:
       - ${VAULTWARDEN_PORT}:80
     volumes:
       - ${CONFIG_ROOT}/vaultwarden/data:/data
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
 networks:
   homelab_network:

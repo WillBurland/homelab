@@ -19,6 +19,11 @@ services:
       - ${GRAFANA_PORT}:3000
     volumes:
       - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
   prometheus:
     image: prom/prometheus:latest
@@ -27,6 +32,11 @@ services:
       <<: *common_env
     ports:
       - ${PROMETHEUS_PORT}:9090
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
@@ -37,6 +47,11 @@ services:
       - ${UPTIME_KUMA_PORT}:3001
     volumes:
       - ${CONFIG_ROOT}/uptime-kuma/data:/app/data
+    deploy:
+      resources:
+        limits:
+          cpus: "1.00"
+          memory: "256M"
 
 networks:
   homelab_network:
