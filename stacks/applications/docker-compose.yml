@@ -25,7 +25,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.00"
+          cpus: "1.0"
           memory: "256M"
 
   syncthing:
@@ -43,8 +43,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
-          memory: "512M"
+          cpus: "1.0"
+          memory: "128M"
 
   vaultwarden:
     image: vaultwarden/server:latest
@@ -58,8 +58,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.00"
-          memory: "256M"
+          cpus: "0.5"
+          memory: "128M"
 
 networks:
   homelab_network:

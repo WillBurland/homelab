@@ -40,6 +40,7 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 ## Roadmap
 
 - [X] Initial configuration/deployment
+- [ ] Migrate Jellyseerr to Seerr project
 - [ ] Zerobyte deployment
 - [ ] InfluxDB deployment
 - [ ] Node Exporter deployments
@@ -92,6 +93,7 @@ mnt
 
 Most environment variables are committed in stack files.
 
-Exceptions:
+The exceptions to this are required to be injected into the stack in Portainer:
 
-- CLOUDFLARE_TUNNEL_TOKEN is injected manually in Portainer and never committed.
+- `CLOUDFLARE_TUNNEL_TOKEN`, in the networking stack.
+- `TAILSCALE_AUTHKEY`, in the networking stack.

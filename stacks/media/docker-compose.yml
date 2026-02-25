@@ -23,7 +23,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
+          cpus: "2.0"
           memory: "512M"
 
   jackett:
@@ -40,7 +40,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.00"
+          cpus: "1.0"
           memory: "256M"
 
   jellyfin:
@@ -62,7 +62,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "6.00"
+          cpus: "6.0"
           memory: "4G"
 
   jellyseerr:
@@ -78,8 +78,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.00"
-          memory: "256M"
+          cpus: "1.0"
+          memory: "512M"
 
   komga:
     image: gotson/komga
@@ -96,7 +96,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "4.00"
+          cpus: "4.0"
           memory: "2G"
 
   qbittorrent:
@@ -116,7 +116,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
+          cpus: "2.0"
           memory: "1G"
 
   radarr:
@@ -133,7 +133,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
+          cpus: "2.0"
           memory: "2G"
 
   sonarr:
@@ -150,7 +150,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.00"
+          cpus: "2.0"
           memory: "2G"
 
 networks:
