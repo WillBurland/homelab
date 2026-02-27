@@ -64,6 +64,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
+      FTLCONF_webserver_api_app_sudo: true
     ports:
       - ${PIHOLE_PORT_DNS}:53
       - ${PIHOLE_PORT_DNS}:53/udp
