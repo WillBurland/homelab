@@ -61,6 +61,22 @@ services:
           cpus: "0.5"
           memory: "128M"
 
+  wud:
+    image: getwud/wud
+    <<: *common_service
+    environment:
+      <<: *common_env
+      WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
+    ports:
+      - ${WUD_PORT}:3000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "256M"
+
 networks:
   homelab_network:
     external: true

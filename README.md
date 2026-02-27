@@ -34,6 +34,7 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 | TrueNAS WebUI       | N/A          | User/password  | NAS management            |
 | Uptime Kuma         | Logging      | Public         | Service status page       |
 | Vaultwarden         | Applications | User/password  | Password manager          |
+| WUD                 | Applications | Public         | Docker container updater  |
 
 **Public\*** -> When connected via LAN, Tailscale or Cloudflare tunnel
 
@@ -41,7 +42,7 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 
 - [X] Initial configuration/deployment
 - [X] Migrate Jellyseerr to Seerr project
-- [ ] What's Up Docker deployment
+- [X] What's Up Docker (WUD) deployment
 - [ ] Zerobyte deployment
 - [ ] InfluxDB deployment
 - [ ] Node Exporter deployments
