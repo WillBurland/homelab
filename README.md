@@ -20,7 +20,6 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 | Homepage            | Applications | Public         | General homepage          |
 | Jackett             | Media        | Public         | Torrent index/RSS manager |
 | Jellyfin            | Media        | User/password  | Media client              |
-| Jellyseerr          | Media        | User/password  | Media request manager     |
 | Komga               | Media        | User/password  | Comic/manga client        |
 | Nginx Proxy Manager | Networking   | User/password  | Reverse proxy             |
 | Pi-Hole             | Networking   | User/password  | DNS adblocker             |
@@ -28,6 +27,7 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 | Prometheus          | Logging      | Public         | Monitoring backend        |
 | qBittorrent         | Media        | Public         | Torrent client            |
 | Radarr              | Media        | Public         | Movie manager             |
+| Seerr               | Media        | User/password  | Media request manager     |
 | Sonarr              | Media        | Public         | TV-Show manager           |
 | Syncthing           | Applications | User/password  | File synchronisation      |
 | Tailscale           | Networking   | N/A            | Secure VPN                |
@@ -40,7 +40,8 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 ## Roadmap
 
 - [X] Initial configuration/deployment
-- [ ] Migrate Jellyseerr to Seerr project
+- [X] Migrate Jellyseerr to Seerr project
+- [ ] What's Up Docker deployment
 - [ ] Zerobyte deployment
 - [ ] InfluxDB deployment
 - [ ] Node Exporter deployments

@@ -65,22 +65,6 @@ services:
           cpus: "6.0"
           memory: "4G"
 
-  jellyseerr:
-    image: fallenbagel/jellyseerr:latest
-    <<: *common_service
-    environment:
-      <<: *common_env
-      LOG_LEVEL: debug
-    ports:
-      - ${JELLYSEERR_PORT}:5055
-    volumes:
-      - ${CONFIG_ROOT}/jellyseerr/config:/app/config
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "512M"
-
   komga:
     image: gotson/komga
     <<: *common_service
@@ -135,6 +119,22 @@ services:
         limits:
           cpus: "2.0"
           memory: "2G"
+
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    <<: *common_service
+    environment:
+      <<: *common_env
+      LOG_LEVEL: debug
+    ports:
+      - ${SEERR_PORT}:5055
+    volumes:
+      - ${CONFIG_ROOT}/seerr/config:/app/config
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "512M"
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
