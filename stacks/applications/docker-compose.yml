@@ -66,6 +66,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
+      WUD_TRIGGER_DOCKER_UPDATE_AUTO: false
       WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
     ports:
       - ${WUD_PORT}:3000
