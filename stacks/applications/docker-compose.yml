@@ -25,7 +25,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: "256M"
 
   syncthing:
@@ -43,7 +43,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: "128M"
 
   vaultwarden:

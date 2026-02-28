@@ -16,8 +16,6 @@ services:
     environment:
       <<: *common_env
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
-    volumes:
-      - ${CONFIG_ROOT}/cloudflared:/etc/cloudflared
     command: tunnel run
     deploy:
       resources:
@@ -56,7 +54,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: "1.0"
           memory: "256M"
 
   pihole:
@@ -75,7 +73,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: "1.0"
           memory: "128M"
 
   tailscale:

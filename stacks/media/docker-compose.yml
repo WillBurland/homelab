@@ -41,11 +41,10 @@ services:
       resources:
         limits:
           cpus: "1.0"
-          memory: "256M"
+          memory: "512M"
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
-    privileged: true
     <<: *common_service
     environment:
       <<: *common_env
@@ -55,7 +54,7 @@ services:
       - ${CONFIG_ROOT}/jellyfin/config:/config
       - ${NAS}:${NAS}
     devices:
-      - /dev/dri/renderD128:/dev/dri/renderD128
+      - /dev/dri:/dev/dri
     group_add:
       - video
       - "107"
@@ -100,7 +99,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "2.0"
+          cpus: "3.0"
           memory: "1G"
 
   radarr:
