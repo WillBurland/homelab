@@ -99,3 +99,4 @@ The exceptions to this are required to be injected into the stack in Portainer:
 
 - `CLOUDFLARE_TUNNEL_TOKEN`, in the networking stack.
 - `TAILSCALE_AUTHKEY`, in the networking stack.
+- `WUD_LSCR_USERNAME` and `WUD_LSCR_TOKEN` in the applications stack.

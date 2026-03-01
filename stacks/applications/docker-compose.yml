@@ -68,6 +68,8 @@ services:
       <<: *common_env
       WUD_TRIGGER_DOCKER_UPDATE_AUTO: false
       WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
+      WUD_REGISTRY_LSCR_PUBLIC_USERNAME: ${WUD_LSCR_USERNAME}
+      WUD_REGISTRY_LSCR_PUBLIC_TOKEN: ${WUD_LSCR_TOKEN} 
     ports:
       - ${WUD_PORT}:3000
     volumes:
