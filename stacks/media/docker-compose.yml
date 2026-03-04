@@ -52,6 +52,7 @@ services:
       - ${JELLYFIN_PORT}:8096
     volumes:
       - ${CONFIG_ROOT}/jellyfin/config:/config
+      - ${CONFIG_ROOT}/jellyfin/config/index.html:/usr/share/jellyfin/web/index.html
       - ${NAS}:${NAS}
     devices:
       - /dev/dri:/dev/dri
