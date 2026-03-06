@@ -84,8 +84,12 @@ services:
       TS_AUTHKEY: ${TAILSCALE_AUTHKEY}
       TS_HOSTNAME: ${SERVER_HOSTNAME}
       TS_ROUTES: 192.168.0.0/24
+      TS_STATE_DIR: /var/lib/tailscale
     volumes:
       - ${CONFIG_ROOT}/tailscale/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
     deploy:
       resources:
         limits:
