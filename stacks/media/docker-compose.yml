@@ -24,7 +24,7 @@ services:
       resources:
         limits:
           cpus: "2.0"
-          memory: "512M"
+          memory: "2G"
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
