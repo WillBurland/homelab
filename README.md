@@ -5,9 +5,36 @@
 Self-hosted Docker homelab stack for media, monitoring, and personal services.
 Designed to be reproducible via docker-compose and accessible through a reverse proxy.
 
-Not included here is the TrueNAS and Portainer systems, as they are not deployed via docker-compose.
+TrueNAS and Portainer are not included here, as they are not deployed via docker-compose.
 
 Remote access is granted either through Tailscale, or a Cloudflare tunnel, which requires a whitelisted Google OAuth login.
+
+## Architecture
+
+```text
+TrueNAS
+├─ ix-apps
+│  └─ Portainer
+│
+├─ Docker Stacks
+│  ├─ Applications
+│  ├─ Logging
+│  ├─ Media
+│  └─ Networking
+│
+└─ ZFS Pools
+   ├─ Apps
+   │  ├─ Docker Data
+   │  └─ Torrents
+   │
+   └─ NAS
+      ├─ Backups
+      ├─ Files
+      └─ Media
+         ├─ Books
+         ├─ Movies
+         └─ Shows
+```
 
 ## Services
 
@@ -23,7 +50,6 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 | Komga               | Media        | User/password  | Comic/manga client        |
 | Nginx Proxy Manager | Networking   | User/password  | Reverse proxy             |
 | Pi-Hole             | Networking   | User/password  | DNS adblocker             |
-| Portainer           | N/A          | User/password  | Docker management         |
 | Prometheus          | Logging      | Public         | Monitoring backend        |
 | qBittorrent         | Media        | Public         | Torrent client            |
 | Radarr              | Media        | Public         | Movie manager             |
@@ -31,25 +57,31 @@ Remote access is granted either through Tailscale, or a Cloudflare tunnel, which
 | Sonarr              | Media        | Public         | TV-Show manager           |
 | Syncthing           | Applications | User/password  | File synchronisation      |
 | Tailscale           | Networking   | N/A            | Secure VPN                |
-| TrueNAS WebUI       | N/A          | User/password  | NAS management            |
 | Uptime Kuma         | Logging      | Public         | Service status page       |
 | Vaultwarden         | Applications | User/password  | Password manager          |
 | WUD                 | Applications | Public         | Docker container updater  |
 
-**Public\*** -> When connected via LAN, Tailscale or Cloudflare tunnel
+**Public\*** = Accessible via LAN, Tailscale or Cloudflare tunnel
 
 ## Roadmap
 
-- [X] Initial configuration/deployment
+- [X] Initial configuration & deployment
 - [X] Migrate Jellyseerr to Seerr project
-- [X] What's Up Docker (WUD) deployment
-- [ ] Zerobyte deployment
-- [ ] InfluxDB deployment
-- [ ] Node Exporter deployments
-- [ ] SSO login (like Authentik)
-- [ ] GitLab deployment
-- [ ] Personal website host
-- [ ] CI/CD website deployment
+- [ ] What's Up Docker (WUD)
+  - [X] Deploy
+  - [ ] Configure automatic updates for selected containers
+- [ ] Zerobyte
+  - [ ] Deploy
+  - [ ] Migrate local PC instance
+- [ ] Expanded logging & monitoring
+  - [ ] Deploy InfluxDB
+  - [ ] Deploy Node Exporters
+  - [ ] Add container healthchecks
+- [ ] SSO/OIDC login (e.g. Authentik)
+- [ ] Personal website hosting
+- [ ] GitLab
+  - [ ] Deploy
+  - [ ] CI/CD for website deployment
 
 ## Deployment
 
@@ -65,38 +97,17 @@ You will also need a public domain which Cloudflare has access to/manages if you
 ### Setup
 
 1. In TrueNAS, deploy a Portainer instance from the built-in ix-apps.
-2. In Portainer, deploy stacks for each of the entries in `/stacks`. Ideally these are fetched from a Git repo to make updates easier.
-3. Deploy the stacks.
-4. Restore the config directories from backup.
-5. Restart the stacks.
-
-## Mounts & directories
-
-```text
-mnt
-|- Apps
-|  |- Docker
-|  \- Torrents
-|     |- Complete
-|     |- CompleteSources
-|     \- Downloading
-\- NAS
-   |- Backups
-   |  |- PC
-   |  \- Docker
-   |- Files
-   \- Media
-      |- Books
-      |- Movies
-      \- Shows
-```
+2. In Portainer, deploy the stacks located in `/stacks`. These should be connected to a Git repo for easier updates.
+3. Restore the config directories from backup.
+4. Restart the stacks.
 
 ## Secrets
 
 Most environment variables are committed in stack files.
 
-The exceptions to this are required to be injected into the stack in Portainer:
+The following secrets must be injected via Portainer at deployment time:
 
-- `CLOUDFLARE_TUNNEL_TOKEN`, in the networking stack.
-- `TAILSCALE_AUTHKEY`, in the networking stack.
-- `WUD_LSCR_USERNAME` and `WUD_LSCR_TOKEN` in the applications stack.
+- `CLOUDFLARE_TUNNEL_TOKEN` - networking stack.
+- `TAILSCALE_AUTHKEY` - networking stack.
+- `WUD_LSCR_USERNAME` - applications stack.
+- `WUD_LSCR_TOKEN` - applications stack.
