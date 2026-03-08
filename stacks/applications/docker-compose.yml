@@ -8,11 +8,15 @@ x-common-service: &common_service
     - homelab_network
   restart: unless-stopped
 
+x-auto-update: &auto_update
+  labels:
+    wud.trigger.docker.update: true
+
 name: homelab-applications
 services:
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
-    <<: *common_service
+    <<: [*common_service, *auto_update]
     environment:
       <<: *common_env
       HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT},home.${SERVER_DOMAIN}
@@ -30,7 +34,7 @@ services:
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
-    <<: *common_service
+    <<: [*common_service, *auto_update]
     environment:
       <<: *common_env
     ports:
@@ -48,7 +52,7 @@ services:
 
   vaultwarden:
     image: vaultwarden/server:latest
-    <<: *common_service
+    <<: [*common_service, *auto_update]
     environment:
       <<: *common_env
     ports:
@@ -63,13 +67,14 @@ services:
 
   wud:
     image: getwud/wud
-    <<: *common_service
+    <<: [*common_service, *auto_update]
     environment:
       <<: *common_env
       WUD_TRIGGER_DOCKER_UPDATE_AUTO: false
       WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
+      WUD_WATCHER_DOCKER_CRON: 0 3 * * *
       WUD_REGISTRY_LSCR_PUBLIC_USERNAME: ${WUD_LSCR_USERNAME}
-      WUD_REGISTRY_LSCR_PUBLIC_TOKEN: ${WUD_LSCR_TOKEN} 
+      WUD_REGISTRY_LSCR_PUBLIC_TOKEN: ${WUD_LSCR_TOKEN}
     ports:
       - ${WUD_PORT}:3000
     volumes:

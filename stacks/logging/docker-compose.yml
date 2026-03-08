@@ -8,6 +8,10 @@ x-common-service: &common_service
     - homelab_network
   restart: unless-stopped
 
+x-auto-update: &auto_update
+  labels:
+    wud.trigger.docker.update: true
+
 name: homelab-logging
 services:
   grafana:
@@ -41,7 +45,7 @@ services:
           memory: "256M"
 
   uptime-kuma:
-    image: louislam/uptime-kuma:2
+    image: louislam/uptime-kuma:2.2.0
     <<: *common_service
     environment:
       <<: *common_env

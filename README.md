@@ -67,9 +67,9 @@ TrueNAS
 
 - [X] Initial configuration & deployment
 - [X] Migrate Jellyseerr to Seerr project
-- [ ] What's Up Docker (WUD)
+- [X] What's Up Docker (WUD)
   - [X] Deploy
-  - [ ] Configure automatic updates for selected containers
+  - [X] Configure automatic updates for selected containers
 - [ ] Zerobyte
   - [ ] Deploy
   - [ ] Migrate local PC instance
