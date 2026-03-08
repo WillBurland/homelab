@@ -76,6 +76,7 @@ services:
     volumes:
       - ${CONFIG_ROOT}/komga/config:/config
       - ${CONFIG_ROOT}/komga/data:/data
+      - ${CONFIG_ROOT}/komga/tmp:/tmp
       - ${NAS}:${NAS}
     deploy:
       resources:

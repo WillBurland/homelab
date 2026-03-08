@@ -33,6 +33,8 @@ services:
       CAPTCHA_SOLVER: none
     ports:
       - ${FLARESOLVERR_PORT}:8191
+    volumes:
+      - ${CONFIG_ROOT}/flaresolverr/config:/config
     deploy:
       resources:
         limits:
@@ -86,7 +88,7 @@ services:
       TS_ROUTES: 192.168.0.0/24
       TS_STATE_DIR: /var/lib/tailscale
     volumes:
-      - ${CONFIG_ROOT}/tailscale/state:/var/lib/tailscale
+      - ${CONFIG_ROOT}/tailscale/data:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - NET_ADMIN

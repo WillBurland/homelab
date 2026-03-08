@@ -32,6 +32,8 @@ services:
       <<: *common_env
     ports:
       - ${PROMETHEUS_PORT}:9090
+    volumes:
+      - ${CONFIG_ROOT}/prometheus/data:/prometheus
     deploy:
       resources:
         limits:
