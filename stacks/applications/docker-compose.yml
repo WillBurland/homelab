@@ -70,7 +70,7 @@ services:
     <<: [*common_service, *auto_update]
     environment:
       <<: *common_env
-      WUD_TRIGGER_DOCKER_UPDATE_AUTO: false
+      WUD_TRIGGER_DOCKER_UPDATE_AUTO: true
       WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
       WUD_WATCHER_DOCKER_CRON: 0 3 * * *
       WUD_REGISTRY_LSCR_PUBLIC_USERNAME: ${WUD_LSCR_USERNAME}
