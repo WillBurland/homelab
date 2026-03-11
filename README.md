@@ -71,9 +71,9 @@ TrueNAS
 - [X] What's Up Docker (WUD)
   - [X] Deploy
   - [X] Configure automatic updates for selected containers
-- [ ] Zerobyte
+- [X] Zerobyte
   - [X] Deploy
-  - [ ] Migrate local PC instance
+  - [X] Migrate local PC instance
 - [ ] Expanded logging & monitoring
   - [ ] Deploy InfluxDB
   - [ ] Deploy Node Exporters
