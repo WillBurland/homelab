@@ -85,6 +85,31 @@ services:
           cpus: "0.5"
           memory: "256M"
 
+  zerobyte:
+    image: ghcr.io/nicotsx/zerobyte:latest
+    <<: [*common_service, *auto_update]
+    environment:
+      <<: *common_env
+      APP_SECRET: ${ZEROBYTE_SECRET}
+      BASE_URL: http://${SERVER_IP}:${ZEROBYTE_PORT}
+      TRUSTED_ORIGINS: https://zerobyte.${SERVER_DOMAIN}
+      ENABLE_DEV_PANEL: true
+    ports:
+      - ${ZEROBYTE_PORT}:4096
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ${NAS}:${NAS}
+      - ${APPS}:${APPS}
+    devices:
+      - /dev/fuse:/dev/fuse
+    cap_add:
+      - SYS_ADMIN
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: "2G"
+
 networks:
   homelab_network:
     external: true

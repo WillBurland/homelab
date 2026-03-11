@@ -60,6 +60,7 @@ TrueNAS
 | Uptime Kuma         | Logging      | Public         | Service status page       |
 | Vaultwarden         | Applications | User/password  | Password manager          |
 | WUD                 | Applications | Public         | Docker container updater  |
+| Zerobyte            | Applications | User/password  | Backup automation         |
 
 **Public\*** = Accessible via LAN, Tailscale or Cloudflare tunnel
 
@@ -71,7 +72,7 @@ TrueNAS
   - [X] Deploy
   - [X] Configure automatic updates for selected containers
 - [ ] Zerobyte
-  - [ ] Deploy
+  - [X] Deploy
   - [ ] Migrate local PC instance
 - [ ] Expanded logging & monitoring
   - [ ] Deploy InfluxDB
@@ -107,7 +108,13 @@ Most environment variables are committed in stack files.
 
 The following secrets must be injected via Portainer at deployment time:
 
-- `CLOUDFLARE_TUNNEL_TOKEN` - networking stack.
-- `TAILSCALE_AUTHKEY` - networking stack.
-- `WUD_LSCR_USERNAME` - applications stack.
-- `WUD_LSCR_TOKEN` - applications stack.
+Network stack:
+
+- `CLOUDFLARE_TUNNEL_TOKEN`
+- `TAILSCALE_AUTHKEY`
+
+Applications stack:
+
+- `WUD_LSCR_USERNAME` - GitHub username
+- `WUD_LSCR_TOKEN` - GitHub API token
+- `ZEROBYTE_SECRET`
