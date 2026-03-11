@@ -18,9 +18,9 @@ for stack in "$ROOT_DIR"/stacks/*; do
             echo "# Run scripts/build-env.sh to regenerate"
             echo "# --------------------------------------"
             echo
-            cat "$GLOBAL_ENV"
+            grep -vE '^\s*#|^\s*$' "$GLOBAL_ENV"
             echo
-            cat "$STACK_ENV"
+            grep -vE '^\s*#|^\s*$' "$STACK_ENV"
         } > "$TARGET_ENV"
 
         echo "Generated $TARGET_ENV"
