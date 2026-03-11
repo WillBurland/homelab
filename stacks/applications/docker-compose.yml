@@ -97,9 +97,10 @@ services:
     ports:
       - ${ZEROBYTE_PORT}:4096
     volumes:
-      - /etc/localtime:/etc/localtime:ro
+      - ${CONFIG_ROOT}/zerobyte/data:/var/lib/zerobyte
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
+      - /etc/localtime:/etc/localtime:ro
       - /mnt/sources/:/mnt/sources
     devices:
       - /dev/fuse:/dev/fuse
