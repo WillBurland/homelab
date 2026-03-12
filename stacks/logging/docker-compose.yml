@@ -10,13 +10,17 @@ x-common-service: &common_service
 
 x-auto-update: &auto_update
   labels:
-    wud.trigger.docker.update: true
+    wud.tag.include: docker.update
+
+x-no-update: &no_update
+  labels:
+    wud.tag.exclude: docker.update
 
 name: homelab-logging
 services:
   grafana:
     image: grafana/grafana:latest
-    <<: *common_service
+    <<: [*common_service, *no_update]
     environment:
       <<: *common_env
     ports:
@@ -31,7 +35,7 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
-    <<: *common_service
+    <<: [*common_service, *no_update]
     environment:
       <<: *common_env
     ports:
@@ -46,7 +50,7 @@ services:
 
   uptime-kuma:
     image: louislam/uptime-kuma:2.2.0
-    <<: *common_service
+    <<: [*common_service, *no_update]
     environment:
       <<: *common_env
     ports:

@@ -10,7 +10,11 @@ x-common-service: &common_service
 
 x-auto-update: &auto_update
   labels:
-    wud.trigger.docker.update: true
+    wud.tag.include: docker.update
+
+x-no-update: &no_update
+  labels:
+    wud.tag.exclude: docker.update
 
 name: homelab-applications
 services:

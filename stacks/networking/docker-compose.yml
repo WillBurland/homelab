@@ -10,7 +10,11 @@ x-common-service: &common_service
 
 x-auto-update: &auto_update
   labels:
-    wud.trigger.docker.update: true
+    wud.tag.include: docker.update
+
+x-no-update: &no_update
+  labels:
+    wud.tag.exclude: docker.update
 
 name: homelab-networking
 services:
@@ -65,7 +69,7 @@ services:
 
   pihole:
     image: pihole/pihole:latest
-    <<: *common_service
+    <<: [*common_service, *no_update]
     environment:
       <<: *common_env
       FTLCONF_webserver_api_app_sudo: true
