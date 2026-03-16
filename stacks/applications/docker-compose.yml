@@ -18,6 +18,29 @@ x-no-update: &no_update
 
 name: homelab-applications
 services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    <<: [*common_service, *auto_update]
+    hostname: gitlab.${SERVER_DOMAIN}
+    environment:
+      <<: *common_env
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.${SERVER_DOMAIN}'
+        gitlab_rails['gitlab_shell_ssh_port'] = ${GITLAB_PORT_SSH}
+    ports:
+      - ${GITLAB_PORT_WEB}:80
+      - ${GITLAB_PORT_SSH}:22
+    volumes:
+      - ${CONFIG_ROOT}/gitlab/config:/etc/gitlab
+      - ${CONFIG_ROOT}/gitlab/logs:/var/log/gitlab
+      - ${CONFIG_ROOT}/gitlab/data:/var/opt/gitlab
+    deploy:
+      resources:
+        limits:
+          cpus: "6.0"
+          memory: "12G"
+    shm_size: '256m'
+
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     <<: [*common_service, *auto_update]

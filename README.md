@@ -81,7 +81,7 @@ TrueNAS
 - [ ] SSO/OIDC login (e.g. Authentik)
 - [ ] Personal website hosting
 - [ ] GitLab
-  - [ ] Deploy
+  - [X] Deploy
   - [ ] CI/CD for website deployment
 
 ## Deployment
