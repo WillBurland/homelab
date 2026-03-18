@@ -43,6 +43,7 @@ TrueNAS
 | Bazarr              | Media        | Public         | Subtitle manager          |
 | Cloudflared         | Networking   | N/A            | Remote tunnel             |
 | FlareSolverr        | Networking   | N/A            | Index challenge solver    |
+| Forgejo             | Applications | User/password  | Git server                |
 | Grafana             | Logging      | User/password  | Monitoring dashboard      |
 | Homepage            | Applications | Public         | General homepage          |
 | Jackett             | Media        | Public         | Torrent index/RSS manager |
@@ -80,7 +81,7 @@ TrueNAS
   - [ ] Add container healthchecks
 - [ ] SSO/OIDC login (e.g. Authentik)
 - [ ] Personal website hosting
-- [ ] GitLab
+- [ ] Forgejo
   - [X] Deploy
   - [ ] CI/CD for website deployment
 
