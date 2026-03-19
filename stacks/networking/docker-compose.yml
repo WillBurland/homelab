@@ -8,19 +8,11 @@ x-common-service: &common_service
     - homelab_network
   restart: unless-stopped
 
-x-auto-update: &auto_update
-  labels:
-    wud.tag.include: docker.update
-
-x-no-update: &no_update
-  labels:
-    wud.tag.exclude: docker.update
-
 name: homelab-networking
 services:
   cloudflared:
     image: cloudflare/cloudflared:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
@@ -33,7 +25,7 @@ services:
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       LOG_LEVEL: info
@@ -51,7 +43,7 @@ services:
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -69,7 +61,7 @@ services:
 
   pihole:
     image: pihole/pihole:latest
-    <<: [*common_service, *no_update]
+    <<: *common_service
     environment:
       <<: *common_env
       FTLCONF_webserver_api_app_sudo: true
@@ -88,7 +80,7 @@ services:
 
   tailscale:
     image: tailscale/tailscale:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       TS_AUTHKEY: ${TAILSCALE_AUTHKEY}

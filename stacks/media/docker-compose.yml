@@ -8,19 +8,11 @@ x-common-service: &common_service
     - homelab_network
   restart: unless-stopped
 
-x-auto-update: &auto_update
-  labels:
-    wud.tag.include: docker.update
-
-x-no-update: &no_update
-  labels:
-    wud.tag.exclude: docker.update
-
 name: homelab-media
 services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -36,7 +28,7 @@ services:
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       AUTO_UPDATE: true
@@ -53,7 +45,7 @@ services:
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -75,7 +67,7 @@ services:
 
   komga:
     image: gotson/komga
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       JAVA_TOOL_OPTIONS: -Xmx1g
@@ -94,7 +86,7 @@ services:
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       WEBUI_PORT: ${QBITTORRENT_PORT_UI}
@@ -114,7 +106,7 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -131,7 +123,7 @@ services:
 
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       LOG_LEVEL: debug
@@ -147,7 +139,7 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:

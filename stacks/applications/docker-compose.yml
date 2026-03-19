@@ -8,19 +8,11 @@ x-common-service: &common_service
     - homelab_network
   restart: unless-stopped
 
-x-auto-update: &auto_update
-  labels:
-    wud.tag.include: docker.update
-
-x-no-update: &no_update
-  labels:
-    wud.tag.exclude: docker.update
-
 name: homelab-applications
 services:
   forgejo:
     image: codeberg.org/forgejo/forgejo:14
-    <<: [*common_service, *no_update]
+    <<: *common_service
     environment:
       <<: *common_env
       USER_UID: ${PUID}
@@ -46,7 +38,7 @@ services:
 
   forgejo-db:
     image: postgres:14
-    <<: [*common_service, *no_update]
+    <<: *common_service
     environment:
       <<: *common_env
       POSTGRES_USER: forgejo
@@ -64,7 +56,7 @@ services:
 
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
       HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT},home.${SERVER_DOMAIN}
@@ -82,7 +74,7 @@ services:
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -100,7 +92,7 @@ services:
 
   vaultwarden:
     image: vaultwarden/server:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
     ports:
@@ -115,10 +107,10 @@ services:
 
   wud:
     image: getwud/wud
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     environment:
       <<: *common_env
-      WUD_TRIGGER_DOCKER_UPDATE_AUTO: true
+      WUD_TRIGGER_DOCKER_UPDATE_AUTO: false
       WUD_TRIGGER_DOCKER_UPDATE_PRUNE: true
       WUD_WATCHER_DOCKER_CRON: 0 3 * * *
       WUD_REGISTRY_LSCR_PUBLIC_USERNAME: ${WUD_LSCR_USERNAME}
@@ -135,7 +127,7 @@ services:
 
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:latest
-    <<: [*common_service, *auto_update]
+    <<: *common_service
     privileged: true
     environment:
       <<: *common_env
