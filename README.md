@@ -1,5 +1,11 @@
 # Docker Homelab Stack
 
+## Important Repo Info
+
+The [GitHub](https://github.com/WillBurland/homelab) repository is the **primary source** for the Homelab Docker stack. The Forgejo repository is a mirror which is updated every 24 hours.
+
+This arrangement avoids chicken-and-egg issues when deploying Docker Compose from inside a container, ensuring that deployments always fetch a stable copy of the stack without waiting for mirror updates or requiring manual synchronisation.
+
 ## Overview
 
 Self-hosted Docker homelab stack for media, monitoring, and personal services.
@@ -44,6 +50,7 @@ TrueNAS
 | Cloudflared         | Networking   | N/A            | Remote tunnel             |
 | FlareSolverr        | Networking   | N/A            | Index challenge solver    |
 | Forgejo             | Applications | User/password  | Git server                |
+| Forgejo DB          | Applications | N/A            | Forgejo Postgres Database |
 | Grafana             | Logging      | User/password  | Monitoring dashboard      |
 | Homepage            | Applications | Public         | General homepage          |
 | Jackett             | Media        | Public         | Torrent index/RSS manager |
@@ -81,8 +88,9 @@ TrueNAS
   - [ ] Add container healthchecks
 - [ ] SSO/OIDC login (e.g. Authentik)
 - [ ] Personal website hosting
-- [ ] Forgejo
-  - [X] Deploy
+- [ ] Git ecosystem
+  - [X] Deploy Forgejo
+  - [ ] Deploy Docker container registry
   - [ ] CI/CD for website deployment
 
 ## Deployment
