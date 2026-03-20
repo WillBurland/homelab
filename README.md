@@ -24,6 +24,7 @@ TrueNAS
 │
 ├─ Docker Stacks
 │  ├─ Applications
+│  ├─ Development
 │  ├─ Logging
 │  ├─ Media
 │  └─ Networking
@@ -49,8 +50,8 @@ TrueNAS
 | Bazarr              | Media        | Public         | Subtitle manager          |
 | Cloudflared         | Networking   | N/A            | Remote tunnel             |
 | FlareSolverr        | Networking   | N/A            | Index challenge solver    |
-| Forgejo             | Applications | User/password  | Git server                |
-| Forgejo DB          | Applications | N/A            | Forgejo Postgres Database |
+| Forgejo             | Development  | User/password  | Git server                |
+| Forgejo DB          | Development  | N/A            | Forgejo Postgres Database |
 | Grafana             | Logging      | User/password  | Monitoring dashboard      |
 | Homepage            | Applications | Public         | General homepage          |
 | Jackett             | Media        | Public         | Torrent index/RSS manager |

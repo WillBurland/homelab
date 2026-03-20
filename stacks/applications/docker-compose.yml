@@ -10,50 +10,6 @@ x-common-service: &common_service
 
 name: homelab-applications
 services:
-  forgejo:
-    image: codeberg.org/forgejo/forgejo:14
-    <<: *common_service
-    environment:
-      <<: *common_env
-      USER_UID: ${PUID}
-      USER_GID: ${PGID}
-      FORGEJO__database__DB_TYPE: postgres
-      FORGEJO__database__HOST: ${SERVER_IP}:${FORGEJO_DB_PORT}
-      FORGEJO__database__NAME: forgejo
-      FORGEJO__database__USER: forgejo
-      FORGEJO__database__PASSWD: forgejo
-    ports:
-      - ${FORGEJO_PORT_WEB}:3000
-      - ${FORGEJO_PORT_SSH}:22
-    volumes:
-      - ${CONFIG_ROOT}/forgejo/data:/data
-      - /etc/localtime:/etc/localtime:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "1G"
-    depends_on:
-      - forgejo-db
-
-  forgejo-db:
-    image: postgres:14
-    <<: *common_service
-    environment:
-      <<: *common_env
-      POSTGRES_USER: forgejo
-      POSTGRES_PASSWORD: forgejo
-      POSTGRES_DB: forgejo
-    ports:
-      - ${FORGEJO_DB_PORT}:5432
-    volumes:
-      - ${CONFIG_ROOT}/forgejo-db/data:/var/lib/postgresql/data
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "256M"
-
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     <<: *common_service
