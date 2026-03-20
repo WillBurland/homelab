@@ -41,7 +41,7 @@ services:
           memory: "256M"
 
   uptime-kuma:
-    image: louislam/uptime-kuma:2.2.0
+    image: louislam/uptime-kuma:2
     <<: *common_service
     environment:
       <<: *common_env
