@@ -62,7 +62,7 @@ services:
           memory: "128M"
 
   wud:
-    image: getwud/wud
+    image: getwud/wud:latest
     <<: *common_service
     environment:
       <<: *common_env
