@@ -88,11 +88,9 @@ TrueNAS
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
 - [ ] SSO/OIDC login (e.g. Authentik)
-- [ ] Personal website hosting
-- [ ] Git ecosystem
-  - [X] Deploy Forgejo
-  - [ ] Deploy Docker container registry
-  - [ ] CI/CD for website deployment
+- [X] Deploy personal website
+- [X] Deploy Forgejo
+- [ ] Expose certain pages to public (website & Forgejo)
 
 ## Deployment
 
