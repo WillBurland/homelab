@@ -45,33 +45,31 @@ TrueNAS
 
 ## Services
 
-| Service             | Stack        | Access Control | Description               |
-|---------------------|--------------|----------------|---------------------------|
-| Bazarr              | Media        | Public         | Subtitle manager          |
-| Cloudflared         | Networking   | N/A            | Remote tunnel             |
-| FlareSolverr        | Networking   | N/A            | Index challenge solver    |
-| Forgejo             | Development  | User/password  | Git server                |
-| Forgejo DB          | Development  | N/A            | Forgejo Postgres Database |
-| Grafana             | Logging      | User/password  | Monitoring dashboard      |
-| Homepage            | Applications | Public         | General homepage          |
-| Jackett             | Media        | Public         | Torrent index/RSS manager |
-| Jellyfin            | Media        | User/password  | Media client              |
-| Komga               | Media        | User/password  | Comic/manga client        |
-| Nginx Proxy Manager | Networking   | User/password  | Reverse proxy             |
-| Pi-Hole             | Networking   | User/password  | DNS adblocker             |
-| Prometheus          | Logging      | Public         | Monitoring backend        |
-| qBittorrent         | Media        | Public         | Torrent client            |
-| Radarr              | Media        | Public         | Movie manager             |
-| Seerr               | Media        | User/password  | Media request manager     |
-| Sonarr              | Media        | Public         | TV-Show manager           |
-| Syncthing           | Applications | User/password  | File synchronisation      |
-| Tailscale           | Networking   | N/A            | Secure VPN                |
-| Uptime Kuma         | Logging      | Public         | Service status page       |
-| Vaultwarden         | Applications | User/password  | Password manager          |
-| WUD                 | Applications | Public         | Docker container updater  |
-| Zerobyte            | Applications | User/password  | Backup automation         |
-
-**Public\*** = Accessible via LAN, Tailscale or Cloudflare tunnel
+| Service             | Stack        | Exposure | Auth  | Description               |
+|---------------------|--------------|----------|-------|---------------------------|
+| Bazarr              | Media        | Internal | None  | Subtitle manager          |
+| Cloudflared         | Networking   | Internal | N/A   | Remote tunnel             |
+| FlareSolverr        | Networking   | Internal | N/A   | Index challenge solver    |
+| Forgejo             | Development  | External | Login | Git server                |
+| Forgejo DB          | Development  | Internal | N/A   | Forgejo Postgres Database |
+| Grafana             | Logging      | Internal | Login | Monitoring dashboard      |
+| Homepage            | Applications | Internal | None  | General homepage          |
+| Jackett             | Media        | Internal | None  | Torrent index/RSS manager |
+| Jellyfin            | Media        | Internal | Login | Media client              |
+| Komga               | Media        | Internal | Login | Comic/manga client        |
+| Nginx Proxy Manager | Networking   | Internal | Login | Reverse proxy             |
+| Pi-Hole             | Networking   | Internal | Login | DNS adblocker             |
+| Prometheus          | Logging      | Internal | None  | Monitoring backend        |
+| qBittorrent         | Media        | Internal | None  | Torrent client            |
+| Radarr              | Media        | Internal | None  | Movie manager             |
+| Seerr               | Media        | Internal | Login | Media request manager     |
+| Sonarr              | Media        | Internal | None  | TV-Show manager           |
+| Syncthing           | Applications | Internal | Login | File synchronisation      |
+| Tailscale           | Networking   | Internal | N/A   | Secure VPN                |
+| Uptime Kuma         | Logging      | Internal | None  | Service status page       |
+| Vaultwarden         | Applications | Internal | Login | Password manager          |
+| WUD                 | Applications | Internal | None  | Docker container updater  |
+| Zerobyte            | Applications | Internal | Login | Backup automation         |
 
 ## Roadmap
 
@@ -83,16 +81,13 @@ TrueNAS
 - [X] Zerobyte
   - [X] Deploy
   - [X] Migrate local PC instance
+- [X] Deploy Forgejo
+- [X] Deploy personal website
 - [ ] Expanded logging & monitoring
   - [ ] Deploy InfluxDB
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
 - [ ] SSO/OIDC login (e.g. Authentik)
-- [ ] Personal website hosting
-- [ ] Git ecosystem
-  - [X] Deploy Forgejo
-  - [ ] Deploy Docker container registry
-  - [ ] CI/CD for website deployment
 
 ## Deployment
 
