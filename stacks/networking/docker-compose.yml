@@ -16,7 +16,10 @@ services:
     environment:
       <<: *common_env
       TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
-    command: tunnel run
+    command:
+      - "tunnel"
+      - "--protocol=http2"
+      - "run"
     deploy:
       resources:
         limits:
