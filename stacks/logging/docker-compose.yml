@@ -35,11 +35,18 @@ services:
     volumes:
       - ${CONFIG_ROOT}/prometheus/data:/prometheus
       - ${CONFIG_ROOT}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-admin-api"
+      - "--storage.tsdb.retention.time=90d"
+      - "--storage.tsdb.retention.size=15GB"
+      - "--storage.tsdb.wal-compression"
     deploy:
       resources:
         limits:
           cpus: "1.0"
-          memory: "256M"
+          memory: "1G"
 
   uptime-kuma:
     image: louislam/uptime-kuma:2

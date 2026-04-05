@@ -84,10 +84,10 @@ TrueNAS
 - [X] Deploy Forgejo
 - [X] Deploy personal website
 - [ ] Expanded logging & monitoring
-  - [ ] Deploy InfluxDB
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
 - [ ] SSO/OIDC login (e.g. Authentik)
+- [ ] Deploy Home Assistant
 
 ## Deployment
 
