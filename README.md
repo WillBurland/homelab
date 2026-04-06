@@ -49,6 +49,7 @@ TrueNAS
 |---------------------|--------------|----------|-------|---------------------------|
 | Bazarr              | Media        | Internal | None  | Subtitle manager          |
 | Cloudflared         | Networking   | Internal | N/A   | Remote tunnel             |
+| FileFlows           | Media        | Internal | None  | Automated media pipelines |
 | FlareSolverr        | Networking   | Internal | N/A   | Index challenge solver    |
 | Forgejo             | Development  | External | Login | Git server                |
 | Forgejo DB          | Development  | Internal | N/A   | Forgejo Postgres Database |

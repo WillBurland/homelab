@@ -26,6 +26,24 @@ services:
           cpus: "2.0"
           memory: "2G"
 
+  fileflows:
+    image: revenz/fileflows
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${FILEFLOWS_PORT}:5000
+    volumes:
+      - ${CONFIG_ROOT}/fileflows/data:/app/Data
+      - ${CONFIG_ROOT}/fileflows/temp:/temp
+      - ${NAS}:${NAS}
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: "12G"
+
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     <<: *common_service
