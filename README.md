@@ -55,6 +55,10 @@ TrueNAS
 | Forgejo DB          | Development  | Internal | N/A   | Forgejo Postgres Database |
 | Grafana             | Logging      | Internal | Login | Monitoring dashboard      |
 | Homepage            | Applications | Internal | None  | General homepage          |
+| Immich              | Applications | Internal | Login | Photo storage/server      |
+| Immich ML           | Applications | Internal | N/A   | Immich ML inference       |
+| Immich Postgres     | Applications | Internal | N/A   | Immich Postgres database  |
+| Immich Redis        | Applications | Internal | N/A   | Immich job queue/cache    |
 | Jackett             | Media        | Internal | None  | Torrent index/RSS manager |
 | Jellyfin            | Media        | Internal | Login | Media client              |
 | Komga               | Media        | Internal | Login | Comic/manga client        |
