@@ -20,11 +20,6 @@ services:
       - "tunnel"
       - "--protocol=http2"
       - "run"
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "64M"
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
@@ -38,11 +33,6 @@ services:
       - ${FLARESOLVERR_PORT}:8191
     volumes:
       - ${CONFIG_ROOT}/flaresolverr/config:/config
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "256M"
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
@@ -56,11 +46,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/nginx-proxy-manager/data:/data
       - ${CONFIG_ROOT}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "256M"
 
   pihole:
     image: pihole/pihole:latest
@@ -75,11 +60,6 @@ services:
       - ${PIHOLE_PORT_HTTPS_UI}:443
     volumes:
       - ${CONFIG_ROOT}/pihole/data:/etc/pihole
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "128M"
 
   tailscale:
     image: tailscale/tailscale:latest
@@ -95,11 +75,6 @@ services:
       - /dev/net/tun:/dev/net/tun
     cap_add:
       - NET_ADMIN
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "256M"
 
 networks:
   homelab_network:

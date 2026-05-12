@@ -22,11 +22,6 @@ services:
       - ${CONFIG_ROOT}/homepage/config:/app/config
       - ${NAS}:${NAS}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "256M"
 
   immich:
     image: ghcr.io/immich-app/immich-server:release
@@ -43,11 +38,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/immich-server/data:/data
       - /etc/localtime:/etc/localtime:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "4G"
     depends_on:
       - immich-redis
       - immich-postgres
@@ -59,11 +49,6 @@ services:
       <<: *common_env
     volumes:
       - ${CONFIG_ROOT}/immich-ml/cache:/cache
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "4G"
 
   immich-postgres:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
@@ -76,12 +61,7 @@ services:
       POSTGRES_INITDB_ARGS: '--data-checksums'
     volumes:
       - ${CONFIG_ROOT}/immich-postgres/data:/var/lib/postgresql/data
-    shm_size: 128mb
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "1G"
+    shm_size: 128m
 
   immich-redis:
     image: docker.io/valkey/valkey:9
@@ -90,11 +70,6 @@ services:
       <<: *common_env
     healthcheck:
       test: redis-cli ping || exit 1
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "128M"
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
@@ -108,11 +83,6 @@ services:
       - ${SYNCTHING_PORT_DISCOVERY}:21027/udp
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "128M"
 
   vaultwarden:
     image: vaultwarden/server:latest
@@ -123,11 +93,6 @@ services:
       - ${VAULTWARDEN_PORT}:80
     volumes:
       - ${CONFIG_ROOT}/vaultwarden/data:/data
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "128M"
 
   wud:
     image: getwud/wud:latest
@@ -145,11 +110,6 @@ services:
       - ${WUD_PORT}:3000
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    deploy:
-      resources:
-        limits:
-          cpus: "0.5"
-          memory: "256M"
 
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:latest
@@ -173,11 +133,6 @@ services:
       - /dev/fuse:/dev/fuse
     cap_add:
       - SYS_ADMIN
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "2G"
 
 networks:
   homelab_network:

@@ -19,11 +19,6 @@ services:
       - ${GRAFANA_PORT}:3000
     volumes:
       - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "256M"
 
   prometheus:
     image: prom/prometheus:latest
@@ -42,11 +37,6 @@ services:
       - "--storage.tsdb.retention.time=90d"
       - "--storage.tsdb.retention.size=15GB"
       - "--storage.tsdb.wal-compression"
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "1G"
 
   uptime-kuma:
     image: louislam/uptime-kuma:2
@@ -57,11 +47,6 @@ services:
       - ${UPTIME_KUMA_PORT}:3001
     volumes:
       - ${CONFIG_ROOT}/uptime-kuma/data:/app/data
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "256M"
 
 networks:
   homelab_network:

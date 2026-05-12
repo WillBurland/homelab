@@ -20,11 +20,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/bazarr/config:/config
       - ${NAS}:${NAS}
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "2G"
 
   fileflows:
     image: revenz/fileflows
@@ -38,11 +33,6 @@ services:
       - ${CONFIG_ROOT}/fileflows/temp:/temp
       - ${NAS}:${NAS}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "12G"
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -55,11 +45,6 @@ services:
       - ${JACKETT_PORT}:9117
     volumes:
       - ${CONFIG_ROOT}/jackett/config:/config
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "512M"
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -77,11 +62,6 @@ services:
     group_add:
       - video
       - "107"
-    deploy:
-      resources:
-        limits:
-          cpus: "6.0"
-          memory: "4G"
 
   komga:
     image: gotson/komga:latest
@@ -96,11 +76,6 @@ services:
       - ${CONFIG_ROOT}/komga/data:/data
       - ${CONFIG_ROOT}/komga/tmp:/tmp
       - ${NAS}:${NAS}
-    deploy:
-      resources:
-        limits:
-          cpus: "4.0"
-          memory: "2G"
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -116,11 +91,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
       - ${APPS}:${APPS}
-    deploy:
-      resources:
-        limits:
-          cpus: "3.0"
-          memory: "1G"
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -133,11 +103,6 @@ services:
       - ${CONFIG_ROOT}/radarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "2G"
 
   seerr:
     image: ghcr.io/seerr-team/seerr:latest
@@ -149,11 +114,6 @@ services:
       - ${SEERR_PORT}:5055
     volumes:
       - ${CONFIG_ROOT}/seerr/config:/app/config
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "512M"
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -166,11 +126,6 @@ services:
       - ${CONFIG_ROOT}/sonarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "2G"
 
 networks:
   homelab_network:

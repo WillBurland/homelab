@@ -28,11 +28,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/forgejo/data:/data
       - /etc/localtime:/etc/localtime:ro
-    deploy:
-      resources:
-        limits:
-          cpus: "2.0"
-          memory: "1G"
     depends_on:
       - forgejo-db
 
@@ -48,11 +43,6 @@ services:
       - ${FORGEJO_DB_PORT}:5432
     volumes:
       - ${CONFIG_ROOT}/forgejo-db/data:/var/lib/postgresql/data
-    deploy:
-      resources:
-        limits:
-          cpus: "1.0"
-          memory: "256M"
 
 networks:
   homelab_network:
