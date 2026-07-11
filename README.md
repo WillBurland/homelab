@@ -63,6 +63,7 @@ TrueNAS
 | Jellyfin            | Media        | Internal | Login | Media client              |
 | Komga               | Media        | Internal | Login | Comic/manga client        |
 | Nginx Proxy Manager | Networking   | Internal | Login | Reverse proxy             |
+| Pacoloco            | Applications | Internal | N/A   | Pacman cache/prefetcher   |
 | Pi-Hole             | Networking   | Internal | Login | DNS adblocker             |
 | Prometheus          | Logging      | Internal | None  | Monitoring backend        |
 | qBittorrent         | Media        | Internal | None  | Torrent client            |

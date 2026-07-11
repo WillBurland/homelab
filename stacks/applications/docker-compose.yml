@@ -71,6 +71,18 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
 
+  pacoloco:
+    image: ghcr.io/anatol/pacoloco:latest
+    <<: *common_service
+    environment:
+      <<: *common_env
+    user: "${PUID}:${PGID}"
+    ports:
+      - ${PACOLOCO_PORT}:9129
+    volumes:
+      - ${CONFIG_ROOT}/pacoloco/cache:/var/cache/pacoloco
+      - ${CONFIG_ROOT}/pacoloco/config/pacoloco.yaml:/etc/pacoloco.yaml
+
   syncthing:
     image: lscr.io/linuxserver/syncthing:latest
     <<: *common_service
