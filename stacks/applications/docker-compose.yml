@@ -7,6 +7,8 @@ x-common-service: &common_service
   networks:
     - homelab_network
   restart: unless-stopped
+  extra_hosts:
+    - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
 name: homelab-applications
 services:
@@ -35,8 +37,6 @@ services:
       REDIS_HOSTNAME: immich-redis
     ports:
       - ${IMMICH_PORT}:2283
-    extra_hosts:
-      - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
     volumes:
       - ${CONFIG_ROOT}/immich-server/data:/data
       - /etc/localtime:/etc/localtime:ro

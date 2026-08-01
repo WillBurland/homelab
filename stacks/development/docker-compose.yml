@@ -7,6 +7,8 @@ x-common-service: &common_service
   networks:
     - homelab_network
   restart: unless-stopped
+  extra_hosts:
+    - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
 name: homelab-development
 services:
