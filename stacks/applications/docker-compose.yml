@@ -35,6 +35,8 @@ services:
       REDIS_HOSTNAME: immich-redis
     ports:
       - ${IMMICH_PORT}:2283
+    extra_hosts:
+      - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
     volumes:
       - ${CONFIG_ROOT}/immich-server/data:/data
       - /etc/localtime:/etc/localtime:ro
