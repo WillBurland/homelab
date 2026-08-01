@@ -57,7 +57,7 @@ TrueNAS
 | FlareSolverr        | Networking     | Internal | N/A   | Index challenge solver      |
 | Forgejo             | Development    | External | Login | Git server                  |
 | Forgejo DB          | Development    | Internal | N/A   | Forgejo Postgres database   |
-| Grafana             | Logging        | Internal | Login | Monitoring dashboard        |
+| Grafana             | Logging        | Internal | OIDC  | Monitoring dashboard        |
 | Homepage            | Applications   | Internal | None  | General homepage            |
 | Immich              | Applications   | Internal | Login | Photo storage/server        |
 | Immich ML           | Applications   | Internal | N/A   | Immich ML inference         |
@@ -136,6 +136,10 @@ Applications stack:
 Authentication stack:
 
 - `AUTHENTIK_SECRET_KEY`
+
+Logging stack:
+
+- `GRAFANA_AUTH_SECRET` - Grafana Authentik secret
 
 Networking stack:
 

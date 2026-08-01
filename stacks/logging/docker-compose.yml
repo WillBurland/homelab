@@ -15,6 +15,17 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
+      GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
+      GF_AUTH_GENERIC_OAUTH_NAME: "authentik"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_ID: "fSrraNAb6yjx7LChfVnDo9dcP3CXr1pPX9gGKrBo"
+      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_AUTH_SECRET}
+      GF_AUTH_GENERIC_OAUTH_SCOPES: "openid profile email"
+      GF_AUTH_GENERIC_OAUTH_AUTH_URL: "https://authentik.${SERVER_DOMAIN}/application/o/authorize/"
+      GF_AUTH_GENERIC_OAUTH_TOKEN_URL: "http://authentik-server:9000/application/o/token/"
+      GF_AUTH_GENERIC_OAUTH_API_URL: "http://authentik-server:9000/application/o/userinfo/"
+      GF_AUTH_SIGNOUT_REDIRECT_URL: "https://authentik.${SERVER_DOMAIN}/application/o/grafana/end-session/"
+      GF_AUTH_OAUTH_AUTO_LOGIN: "true"
+      GF_SERVER_ROOT_URL: "https://grafana.${SERVER_DOMAIN}"
     ports:
       - ${GRAFANA_PORT}:3000
     volumes:
