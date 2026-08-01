@@ -24,6 +24,7 @@ TrueNAS
 │
 ├─ Docker Stacks
 │  ├─ Applications
+│  ├─ Authentication
 │  ├─ Development
 │  ├─ Logging
 │  ├─ Media
@@ -45,37 +46,40 @@ TrueNAS
 
 ## Services
 
-| Service             | Stack        | Exposure | Auth  | Description               |
-|---------------------|--------------|----------|-------|---------------------------|
-| Bazarr              | Media        | Internal | None  | Subtitle manager          |
-| Cloudflared         | Networking   | Internal | N/A   | Remote tunnel             |
-| FileFlows           | Media        | Internal | None  | Automated media pipelines |
-| FlareSolverr        | Networking   | Internal | N/A   | Index challenge solver    |
-| Forgejo             | Development  | External | Login | Git server                |
-| Forgejo DB          | Development  | Internal | N/A   | Forgejo Postgres Database |
-| Grafana             | Logging      | Internal | Login | Monitoring dashboard      |
-| Homepage            | Applications | Internal | None  | General homepage          |
-| Immich              | Applications | Internal | Login | Photo storage/server      |
-| Immich ML           | Applications | Internal | N/A   | Immich ML inference       |
-| Immich Postgres     | Applications | Internal | N/A   | Immich Postgres database  |
-| Immich Redis        | Applications | Internal | N/A   | Immich job queue/cache    |
-| Jackett             | Media        | Internal | None  | Torrent index/RSS manager |
-| Jellyfin            | Media        | Internal | Login | Media client              |
-| Komga               | Media        | Internal | Login | Comic/manga client        |
-| Nginx Proxy Manager | Networking   | Internal | Login | Reverse proxy             |
-| Pacoloco            | Applications | Internal | N/A   | Pacman cache/prefetcher   |
-| Pi-Hole             | Networking   | Internal | Login | DNS adblocker             |
-| Prometheus          | Logging      | Internal | None  | Monitoring backend        |
-| qBittorrent         | Media        | Internal | None  | Torrent client            |
-| Radarr              | Media        | Internal | None  | Movie manager             |
-| Seerr               | Media        | Internal | Login | Media request manager     |
-| Sonarr              | Media        | Internal | None  | TV-Show manager           |
-| Syncthing           | Applications | Internal | Login | File synchronisation      |
-| Tailscale           | Networking   | Internal | N/A   | Secure VPN                |
-| Uptime Kuma         | Logging      | Internal | None  | Service status page       |
-| Vaultwarden         | Applications | Internal | Login | Password manager          |
-| WUD                 | Applications | Internal | None  | Docker container updater  |
-| Zerobyte            | Applications | Internal | Login | Backup automation         |
+| Service             | Stack          | Exposure | Auth  | Description                 |
+|---------------------|----------------|----------|-------|-----------------------------|
+| Authentik Server    | Authentication | Internal | Login | SSO/OIDC identity provider  |
+| Authentik Worker    | Authentication | Internal | N/A   | Background task processor   |
+| Authentik Postgres  | Authentication | Internal | N/A   | Authentik Postgres database |
+| Bazarr              | Media          | Internal | None  | Subtitle manager            |
+| Cloudflared         | Networking     | Internal | N/A   | Remote tunnel               |
+| FileFlows           | Media          | Internal | None  | Automated media pipelines   |
+| FlareSolverr        | Networking     | Internal | N/A   | Index challenge solver      |
+| Forgejo             | Development    | External | Login | Git server                  |
+| Forgejo DB          | Development    | Internal | N/A   | Forgejo Postgres database   |
+| Grafana             | Logging        | Internal | Login | Monitoring dashboard        |
+| Homepage            | Applications   | Internal | None  | General homepage            |
+| Immich              | Applications   | Internal | Login | Photo storage/server        |
+| Immich ML           | Applications   | Internal | N/A   | Immich ML inference         |
+| Immich Postgres     | Applications   | Internal | N/A   | Immich Postgres database    |
+| Immich Redis        | Applications   | Internal | N/A   | Immich job queue/cache      |
+| Jackett             | Media          | Internal | None  | Torrent index/RSS manager   |
+| Jellyfin            | Media          | Internal | Login | Media client                |
+| Komga               | Media          | Internal | Login | Comic/manga client          |
+| Nginx Proxy Manager | Networking     | Internal | Login | Reverse proxy               |
+| Pacoloco            | Applications   | Internal | N/A   | Pacman cache/prefetcher     |
+| Pi-Hole             | Networking     | Internal | Login | DNS adblocker               |
+| Prometheus          | Logging        | Internal | None  | Monitoring backend          |
+| qBittorrent         | Media          | Internal | None  | Torrent client              |
+| Radarr              | Media          | Internal | None  | Movie manager               |
+| Seerr               | Media          | Internal | Login | Media request manager       |
+| Sonarr              | Media          | Internal | None  | TV-Show manager             |
+| Syncthing           | Applications   | Internal | Login | File synchronisation        |
+| Tailscale           | Networking     | Internal | N/A   | Secure VPN                  |
+| Uptime Kuma         | Logging        | Internal | None  | Service status page         |
+| Vaultwarden         | Authentication | Internal | Login | Password manager            |
+| WUD                 | Applications   | Internal | None  | Docker container updater    |
+| Zerobyte            | Applications   | Internal | Login | Backup automation           |
 
 ## Roadmap
 
@@ -89,10 +93,12 @@ TrueNAS
   - [X] Migrate local PC instance
 - [X] Deploy Forgejo
 - [X] Deploy personal website
+- [X] SSO/OIDC login (e.g. Authentik)
+  - [ ] Migrate relevant services to use it
+  - [ ] Expose relevant services to the internet
 - [ ] Expanded logging & monitoring
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
-- [ ] SSO/OIDC login (e.g. Authentik)
 - [ ] Deploy Home Assistant
 
 ## Deployment
@@ -119,11 +125,6 @@ Most environment variables are committed in stack files.
 
 The following secrets must be injected via Portainer at deployment time:
 
-Network stack:
-
-- `CLOUDFLARE_TUNNEL_TOKEN`
-- `TAILSCALE_AUTHKEY`
-
 Applications stack:
 
 - `WUD_HUB_USERNAME` - Docker Hub username
@@ -131,3 +132,12 @@ Applications stack:
 - `WUD_LSCR_USERNAME` - GitHub username
 - `WUD_LSCR_TOKEN` - GitHub API token
 - `ZEROBYTE_SECRET`
+
+Authentication stack:
+
+- `AUTHENTIK_SECRET_KEY`
+
+Networking stack:
+
+- `CLOUDFLARE_TUNNEL_TOKEN`
+- `TAILSCALE_AUTHKEY`

@@ -96,16 +96,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
 
-  vaultwarden:
-    image: vaultwarden/server:latest
-    <<: *common_service
-    environment:
-      <<: *common_env
-    ports:
-      - ${VAULTWARDEN_PORT}:80
-    volumes:
-      - ${CONFIG_ROOT}/vaultwarden/data:/data
-
   wud:
     image: getwud/wud:latest
     <<: *common_service
