@@ -54,6 +54,7 @@ services:
   scrutiny:
     image: ghcr.io/analogj/scrutiny:latest-omnibus
     <<: *common_service
+    privileged: true
     environment:
       <<: *common_env
     ports:
