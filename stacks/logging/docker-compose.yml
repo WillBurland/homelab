@@ -51,6 +51,28 @@ services:
       - "--storage.tsdb.retention.size=15GB"
       - "--storage.tsdb.wal-compression"
 
+  scrutiny:
+    image: ghcr.io/analogj/scrutiny:latest-omnibus
+    <<: *common_service
+    environment:
+      <<: *common_env
+    ports:
+      - ${SCRUTINY_PORT_UI}:8080
+      - ${SCRUTINY_PORT_DB}:8086
+    volumes:
+      - ${CONFIG_ROOT}/scrutiny/config:/config
+      - ${CONFIG_ROOT}/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/sda:/dev/sda
+      - /dev/sdb:/dev/sdb
+      - /dev/sdc:/dev/sdc
+      - /dev/sdd:/dev/sdd
+      - /dev/nvme0n1:/dev/nvme0n1
+      - /dev/nvme1n1:/dev/nvme1n1
+    cap_add:
+      - SYS_RAWIO
+
   uptime-kuma:
     image: louislam/uptime-kuma:2
     <<: *common_service

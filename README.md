@@ -46,40 +46,41 @@ TrueNAS
 
 ## Services
 
-| Service             | Stack          | Exposure | Auth  | Description                 |
-|---------------------|----------------|----------|-------|-----------------------------|
-| Authentik Server    | Authentication | Internal | Login | SSO/OIDC identity provider  |
-| Authentik Worker    | Authentication | Internal | N/A   | Background task processor   |
-| Authentik Postgres  | Authentication | Internal | N/A   | Authentik Postgres database |
-| Bazarr              | Media          | Internal | None  | Subtitle manager            |
-| Cloudflared         | Networking     | Internal | N/A   | Remote tunnel               |
-| FileFlows           | Media          | Internal | None  | Automated media pipelines   |
-| FlareSolverr        | Networking     | Internal | N/A   | Index challenge solver      |
-| Forgejo             | Development    | External | Login | Git server                  |
-| Forgejo DB          | Development    | Internal | N/A   | Forgejo Postgres database   |
-| Grafana             | Logging        | Internal | OIDC  | Monitoring dashboard        |
-| Homepage            | Applications   | Internal | None  | General homepage            |
-| Immich              | Applications   | Internal | Login | Photo storage/server        |
-| Immich ML           | Applications   | Internal | N/A   | Immich ML inference         |
-| Immich Postgres     | Applications   | Internal | N/A   | Immich Postgres database    |
-| Immich Redis        | Applications   | Internal | N/A   | Immich job queue/cache      |
-| Jackett             | Media          | Internal | None  | Torrent index/RSS manager   |
-| Jellyfin            | Media          | Internal | Login | Media client                |
-| Komga               | Media          | Internal | Login | Comic/manga client          |
-| Nginx Proxy Manager | Networking     | Internal | Login | Reverse proxy               |
-| Pacoloco            | Applications   | Internal | N/A   | Pacman cache/prefetcher     |
-| Pi-Hole             | Networking     | Internal | Login | DNS adblocker               |
-| Prometheus          | Logging        | Internal | None  | Monitoring backend          |
-| qBittorrent         | Media          | Internal | None  | Torrent client              |
-| Radarr              | Media          | Internal | None  | Movie manager               |
-| Seerr               | Media          | Internal | Login | Media request manager       |
-| Sonarr              | Media          | Internal | None  | TV-Show manager             |
-| Syncthing           | Applications   | Internal | Login | File synchronisation        |
-| Tailscale           | Networking     | Internal | N/A   | Secure VPN                  |
-| Uptime Kuma         | Logging        | Internal | None  | Service status page         |
-| Vaultwarden         | Authentication | Internal | Login | Password manager            |
-| WUD                 | Applications   | Internal | None  | Docker container updater    |
-| Zerobyte            | Applications   | Internal | Login | Backup automation           |
+| Service             | Stack          | Auth Method  | Description                 |
+|---------------------|----------------|--------------|-----------------------------|
+| Authentik Server    | Authentication | Login        | SSO/OIDC identity provider  |
+| Authentik Worker    | Authentication | N/A          | Background task processor   |
+| Authentik Postgres  | Authentication | N/A          | Authentik Postgres database |
+| Bazarr              | Media          | None         | Subtitle manager            |
+| Cloudflared         | Networking     | N/A          | Remote tunnel               |
+| FileFlows           | Media          | None         | Automated media pipelines   |
+| FlareSolverr        | Networking     | N/A          | Index challenge solver      |
+| Forgejo             | Development    | OIDC         | Git server                  |
+| Forgejo DB          | Development    | N/A          | Forgejo Postgres database   |
+| Grafana             | Logging        | OIDC         | Monitoring dashboard        |
+| Homepage            | Applications   | None         | General homepage            |
+| Immich              | Applications   | OIDC         | Photo storage/server        |
+| Immich ML           | Applications   | N/A          | Immich ML inference         |
+| Immich Postgres     | Applications   | N/A          | Immich Postgres database    |
+| Immich Redis        | Applications   | N/A          | Immich job queue/cache      |
+| Jackett             | Media          | None         | Torrent index/RSS manager   |
+| Jellyfin            | Media          | Login        | Media client                |
+| Komga               | Media          | Forward auth | Comic/manga client          |
+| Nginx Proxy Manager | Networking     | Login        | Reverse proxy               |
+| Pacoloco            | Applications   | N/A          | Pacman cache/prefetcher     |
+| Pi-Hole             | Networking     | Login        | DNS adblocker               |
+| Prometheus          | Logging        | None         | Monitoring backend          |
+| qBittorrent         | Media          | None         | Torrent client              |
+| Radarr              | Media          | None         | Movie manager               |
+| Scrutiny            | Logging        | Login        | Drive monitoring            |
+| Seerr               | Media          | Login        | Media request manager       |
+| Sonarr              | Media          | None         | TV-Show manager             |
+| Syncthing           | Applications   | Login        | File synchronisation        |
+| Tailscale           | Networking     | N/A          | Secure VPN                  |
+| Uptime Kuma         | Logging        | None         | Service status page         |
+| Vaultwarden         | Authentication | Login        | Password manager            |
+| WUD                 | Applications   | None         | Docker container updater    |
+| Zerobyte            | Applications   | Login        | Backup automation           |
 
 ## Roadmap
 
@@ -100,6 +101,7 @@ TrueNAS
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
 - [ ] Deploy Home Assistant
+- [ ] Separate/restrict Docker networks
 
 ## Deployment
 
