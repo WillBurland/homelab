@@ -10,10 +10,23 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-watchtower-auto-update: &auto_update
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.cooldown-delay: "24h"
+
+x-watchtower-monitor-only: &monitor_updates_only
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.monitor-only: "true"
+
+x-watchtower-pinned: &pinned_version
+  com.centurylinklabs.watchtower.enable: "false"
+
 name: homelab-authentication
 services:
   authentik-postgresql:
     image: docker.io/library/postgres:16-alpine
+    labels:
+      <<: *pinned_version
     <<: *common_service
     env_file:
       - .env
@@ -35,6 +48,8 @@ services:
 
   authentik-server:
     image: ghcr.io/goauthentik/server:2026.5
+    labels:
+      <<: *pinned_version
     <<: *common_service
     command: server
     depends_on:
@@ -59,6 +74,8 @@ services:
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:2026.5
+    labels:
+      <<: *pinned_version
     <<: *common_service
     command: worker
     depends_on:
@@ -82,7 +99,9 @@ services:
       - ${CONFIG_ROOT}/authentik-worker/custom-templates:/templates
 
   vaultwarden:
-    image: vaultwarden/server:latest
+    image: vaultwarden/server:1.37.1
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env

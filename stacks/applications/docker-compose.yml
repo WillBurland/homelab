@@ -10,10 +10,23 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-watchtower-auto-update: &auto_update
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.cooldown-delay: "24h"
+
+x-watchtower-monitor-only: &monitor_updates_only
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.monitor-only: "true"
+
+x-watchtower-pinned: &pinned_version
+  com.centurylinklabs.watchtower.enable: "false"
+
 name: homelab-applications
 services:
   homepage:
     image: ghcr.io/gethomepage/homepage:v1
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -27,6 +40,8 @@ services:
 
   immich:
     image: ghcr.io/immich-app/immich-server:v3
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env
@@ -46,6 +61,8 @@ services:
 
   immich-ml:
     image: ghcr.io/immich-app/immich-machine-learning:v3
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env
@@ -54,6 +71,8 @@ services:
 
   immich-postgres:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env
@@ -67,6 +86,8 @@ services:
 
   immich-redis:
     image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env
@@ -75,6 +96,8 @@ services:
 
   pacoloco:
     image: ghcr.io/anatol/pacoloco:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -87,6 +110,8 @@ services:
 
   syncthing:
     image: ghcr.io/syncthing/syncthing:2
+    labels:
+      <<: *monitor_updates_only
     <<: *common_service
     environment:
       <<: *common_env
@@ -100,14 +125,25 @@ services:
 
   watchtower:
     image: ghcr.io/nicholas-fedor/watchtower:1
+    labels:
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env
+      WATCHTOWER_LABEL_ENABLE: "true"
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_POLL_INTERVAL: "86400"
+      # TODO - RSS feed
+      WATCHTOWER_NOTIFICATIONS: "shoutrrr"
+      WATCHTOWER_NOTIFICATION_URL: "discord://TOKEN@WEBHOOKID"
+      WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:v0
+    labels:
+      <<: *auto_update
     <<: *common_service
     privileged: true
     environment:

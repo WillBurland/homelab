@@ -10,10 +10,23 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-watchtower-auto-update: &auto_update
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.cooldown-delay: "24h"
+
+x-watchtower-monitor-only: &monitor_updates_only
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.monitor-only: "true"
+
+x-watchtower-pinned: &pinned_version
+  com.centurylinklabs.watchtower.enable: "false"
+
 name: homelab-media
 services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -25,6 +38,8 @@ services:
 
   fileflows:
     image: revenz/fileflows
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -38,6 +53,8 @@ services:
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -50,6 +67,8 @@ services:
 
   jellyfin:
     image: ghcr.io/jellyfin/jellyfin:10
+    labels:
+      <<: *monitor_updates_only
     <<: *common_service
     environment:
       <<: *common_env
@@ -67,6 +86,8 @@ services:
 
   komga:
     image: ghcr.io/gotson/komga:1.x
+    labels:
+      <<: *monitor_updates_only
     <<: *common_service
     environment:
       <<: *common_env
@@ -81,6 +102,8 @@ services:
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -96,6 +119,8 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -108,6 +133,8 @@ services:
 
   seerr:
     image: ghcr.io/seerr-team/seerr:v3
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
@@ -119,6 +146,8 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
+    labels:
+      <<: *auto_update
     <<: *common_service
     environment:
       <<: *common_env
