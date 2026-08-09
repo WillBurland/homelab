@@ -109,9 +109,9 @@ services:
       - ${CONFIG_ROOT}/pacoloco/config/pacoloco.yaml:/etc/pacoloco.yaml
 
   syncthing:
-    image: ghcr.io/syncthing/syncthing:2
+    image: lscr.io/linuxserver/syncthing:2.1.3
     labels:
-      <<: *monitor_updates_only
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env

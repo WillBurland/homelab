@@ -66,9 +66,9 @@ services:
       - ${CONFIG_ROOT}/jackett/config:/config
 
   jellyfin:
-    image: ghcr.io/jellyfin/jellyfin:10
+    image: lscr.io/linuxserver/jellyfin:10.11.11
     labels:
-      <<: *monitor_updates_only
+      <<: *pinned_version
     <<: *common_service
     environment:
       <<: *common_env

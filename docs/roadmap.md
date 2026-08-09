@@ -4,7 +4,7 @@
 - [X] Migrate Jellyseerr to Seerr project
 - [X] Selected container automatic updates
   - [X] Deploy Watchtower (modern fork)
-  - [ ] Categorise containers by update type
+  - [X] Categorise containers by update type
   - [ ] Deploy RSS release notifications
 - [X] Backup solution
   - [X] Deploy Zerobyte
