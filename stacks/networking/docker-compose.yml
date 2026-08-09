@@ -37,7 +37,7 @@ services:
       - ${CONFIG_ROOT}/flaresolverr/config:/config
 
   nginx-proxy-manager:
-    image: jc21/nginx-proxy-manager:latest
+    image: jc21/nginx-proxy-manager:2
     <<: *common_service
     environment:
       <<: *common_env
@@ -64,7 +64,7 @@ services:
       - ${CONFIG_ROOT}/pihole/data:/etc/pihole
 
   tailscale:
-    image: tailscale/tailscale:latest
+    image: tailscale/tailscale:stable
     <<: *common_service
     environment:
       <<: *common_env

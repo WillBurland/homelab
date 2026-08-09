@@ -34,7 +34,7 @@ services:
       - ${CONFIG_ROOT}/authentik-postgres/data:/var/lib/postgresql/data
 
   authentik-server:
-    image: authentik/server:2026.5
+    image: ghcr.io/goauthentik/server:2026.5
     <<: *common_service
     command: server
     depends_on:
@@ -58,7 +58,7 @@ services:
       - ${CONFIG_ROOT}/authentik-server/custom-templates:/templates
 
   authentik-worker:
-    image: authentik/server:2026.5
+    image: ghcr.io/goauthentik/server:2026.5
     <<: *common_service
     command: worker
     depends_on:

@@ -13,7 +13,7 @@ x-common-service: &common_service
 name: homelab-applications
 services:
   homepage:
-    image: ghcr.io/gethomepage/homepage:latest
+    image: ghcr.io/gethomepage/homepage:v1
     <<: *common_service
     environment:
       <<: *common_env
@@ -26,7 +26,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   immich:
-    image: ghcr.io/immich-app/immich-server:release
+    image: ghcr.io/immich-app/immich-server:v3
     <<: *common_service
     environment:
       <<: *common_env
@@ -45,7 +45,7 @@ services:
       - immich-postgres
 
   immich-ml:
-    image: ghcr.io/immich-app/immich-machine-learning:release
+    image: ghcr.io/immich-app/immich-machine-learning:v3
     <<: *common_service
     environment:
       <<: *common_env
@@ -66,7 +66,7 @@ services:
     shm_size: 128m
 
   immich-redis:
-    image: docker.io/valkey/valkey:9
+    image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
     <<: *common_service
     environment:
       <<: *common_env
@@ -86,7 +86,7 @@ services:
       - ${CONFIG_ROOT}/pacoloco/config/pacoloco.yaml:/etc/pacoloco.yaml
 
   syncthing:
-    image: lscr.io/linuxserver/syncthing:latest
+    image: ghcr.io/syncthing/syncthing:2
     <<: *common_service
     environment:
       <<: *common_env
@@ -116,7 +116,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   zerobyte:
-    image: ghcr.io/nicotsx/zerobyte:latest
+    image: ghcr.io/nicotsx/zerobyte:v0
     <<: *common_service
     privileged: true
     environment:

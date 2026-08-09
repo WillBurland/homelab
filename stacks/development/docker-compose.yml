@@ -13,7 +13,7 @@ x-common-service: &common_service
 name: homelab-development
 services:
   forgejo:
-    image: codeberg.org/forgejo/forgejo:14
+    image: codeberg.org/forgejo/forgejo:16
     <<: *common_service
     environment:
       <<: *common_env

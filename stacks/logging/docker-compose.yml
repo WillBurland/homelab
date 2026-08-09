@@ -34,7 +34,7 @@ services:
       - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
 
   prometheus:
-    image: prom/prometheus:latest
+    image: ghcr.io/prometheus/prometheus:v3
     <<: *common_service
     environment:
       <<: *common_env
@@ -52,7 +52,7 @@ services:
       - "--storage.tsdb.wal-compression"
 
   scrutiny:
-    image: ghcr.io/analogj/scrutiny:latest-omnibus
+    image: ghcr.io/analogj/scrutiny:v0-omnibus
     <<: *common_service
     privileged: true
     environment:
@@ -75,7 +75,7 @@ services:
       - SYS_RAWIO
 
   uptime-kuma:
-    image: louislam/uptime-kuma:2
+    image: ghcr.io/louislam/uptime-kuma:2
     <<: *common_service
     environment:
       <<: *common_env
