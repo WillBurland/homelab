@@ -1,0 +1,26 @@
+# Secrets
+
+Most environment variables are committed in stack files.
+
+The following secrets must be injected via Portainer at deployment time:
+
+## Applications stack
+
+- `WUD_HUB_USERNAME` - Docker Hub username
+- `WUD_HUB_TOKEN` - Docker Hub access token
+- `WUD_LSCR_USERNAME` - GitHub username
+- `WUD_LSCR_TOKEN` - GitHub API token
+- `ZEROBYTE_SECRET`
+
+## Authentication stack
+
+- `AUTHENTIK_SECRET_KEY`
+
+## Logging stack
+
+- `GRAFANA_AUTH_SECRET` - Grafana Authentik secret
+
+## Networking stack
+
+- `CLOUDFLARE_TUNNEL_TOKEN`
+- `TAILSCALE_AUTHKEY`
