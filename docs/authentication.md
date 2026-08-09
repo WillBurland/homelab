@@ -10,12 +10,12 @@ Services with native OIDC functionality will use Authentik directly, while other
 |---------------------|----------|--------------|
 | Homepage            | No       | None         |
 | Immich              | Yes      | OIDC         |
-| Immich ML           | No       | N/A          |
-| Immich Postgres     | No       | N/A          |
-| Immich Redis        | No       | N/A          |
-| Pacoloco            | No       | N/A          |
+| Immich ML           | -        | -            |
+| Immich Postgres     | -        | -            |
+| Immich Redis        | -        | -            |
+| Pacoloco            | -        | -            |
 | Syncthing           | No       | Login        |
-| WUD                 | No       | None         |
+| Watchtower          | -        | -            |
 | Zerobyte            | No       | Login        |
 
 ## Authentication
@@ -23,8 +23,8 @@ Services with native OIDC functionality will use Authentik directly, while other
 | Service             | Migrated | Auth Method  |
 |---------------------|----------|--------------|
 | Authentik Server    | No       | Login        |
-| Authentik Worker    | No       | N/A          |
-| Authentik Postgres  | No       | N/A          |
+| Authentik Worker    | -        | -            |
+| Authentik Postgres  | -        | -            |
 | Vaultwarden         | No       | Login        |
 
 ## Development
@@ -32,7 +32,7 @@ Services with native OIDC functionality will use Authentik directly, while other
 | Service             | Migrated | Auth Method  |
 |---------------------|----------|--------------|
 | Forgejo             | Yes      | OIDC         |
-| Forgejo DB          | No       | N/A          |
+| Forgejo DB          | -        | -            |
 
 ## Logging
 
@@ -61,8 +61,8 @@ Services with native OIDC functionality will use Authentik directly, while other
 
 | Service             | Migrated | Auth Method  |
 |---------------------|----------|--------------|
-| Cloudflared         | No       | N/A          |
-| FlareSolverr        | No       | N/A          |
+| Cloudflared         | -        | -            |
+| FlareSolverr        | -        | -            |
 | Nginx Proxy Manager | No       | Login        |
 | Pi-Hole             | No       | Login        |
-| Tailscale           | No       | N/A          |
+| Tailscale           | -        | -            |

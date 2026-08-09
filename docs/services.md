@@ -11,7 +11,7 @@
 | Immich Redis        | Immich job queue/cache   |
 | Pacoloco            | Pacman cache/prefetcher  |
 | Syncthing           | File synchronisation     |
-| WUD                 | Docker container updater |
+| Watchtower          | Docker container updater |
 | Zerobyte            | Backup automation        |
 
 ## Authentication

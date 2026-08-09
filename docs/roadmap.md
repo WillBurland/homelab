@@ -2,11 +2,12 @@
 
 - [X] Initial configuration & deployment
 - [X] Migrate Jellyseerr to Seerr project
-- [X] What's Up Docker (WUD)
-  - [X] Deploy
-  - [X] Configure automatic updates for selected containers
-- [X] Zerobyte
-  - [X] Deploy
+- [X] Selected container automatic updates
+  - [X] Deploy Watchtower (modern fork)
+  - [ ] Categorise containers by update type
+  - [ ] Deploy RSS release notifications
+- [X] Backup solution
+  - [X] Deploy Zerobyte
   - [X] Migrate local PC instance
 - [X] Deploy Forgejo
 - [X] Deploy personal website
@@ -15,7 +16,5 @@
 - [ ] Expanded logging & monitoring
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
-- [ ] Swap WUD to Watchtower fork
-  - [ ] RSS release notifications
 - [ ] Deploy Home Assistant
 - [ ] Separate/restrict Docker networks

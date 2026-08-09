@@ -6,10 +6,6 @@ The following secrets must be injected via Portainer at deployment time:
 
 ## Applications stack
 
-- `WUD_HUB_USERNAME` - Docker Hub username
-- `WUD_HUB_TOKEN` - Docker Hub access token
-- `WUD_LSCR_USERNAME` - GitHub username
-- `WUD_LSCR_TOKEN` - GitHub API token
 - `ZEROBYTE_SECRET`
 
 ## Authentication stack
