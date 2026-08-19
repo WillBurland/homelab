@@ -133,9 +133,8 @@ services:
       WATCHTOWER_LABEL_ENABLE: "true"
       WATCHTOWER_CLEANUP: "true"
       WATCHTOWER_POLL_INTERVAL: "86400"
-      # TODO - RSS feed
       WATCHTOWER_NOTIFICATIONS: "shoutrrr"
-      WATCHTOWER_NOTIFICATION_URL: "discord://TOKEN@WEBHOOKID"
+      WATCHTOWER_NOTIFICATION_URL: "discord://${WATCHTOWER_DISCORD_WEBHOOK}"
       WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock

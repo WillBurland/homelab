@@ -6,6 +6,7 @@ The following secrets must be injected via Portainer at deployment time:
 
 ## Applications stack
 
+- `WATCHTOWER_DISCORD_WEBHOOK` - Token@WebhookID
 - `ZEROBYTE_SECRET`
 
 ## Authentication stack
