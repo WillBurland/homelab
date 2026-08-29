@@ -51,6 +51,7 @@ TrueNAS
 | [docs/authentication.md](docs/authentication.md) | OIDC/forward-auth status per service             |
 | [docs/backup.md](docs/backup.md)                 | Backup strategies and procedures                 |
 | [docs/hardware.md](docs/hardware.md)             | Physical server specs/details                    |
+| [docs/mac-addresses.md](docs/mac-addresses.md)   | Pinned MAC addresses details                     |
 | [docs/roadmap.md](docs/roadmap.md)               | Planned and completed work                       |
 | [docs/secrets.md](docs/secrets.md)               | Required environmental variables per stack       |
 | [docs/services.md](docs/services.md)             | Full service table, grouped by stack, with notes |

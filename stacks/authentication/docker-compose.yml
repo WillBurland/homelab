@@ -23,31 +23,9 @@ x-watchtower-pinned: &pinned_version
 
 name: homelab-authentication
 services:
-  authentik-postgresql:
-    image: docker.io/library/postgres:16-alpine
-    labels:
-      <<: *pinned_version
-    <<: *common_service
-    env_file:
-      - .env
-    environment:
-      <<: *common_env
-      POSTGRES_DB: authentik
-      POSTGRES_PASSWORD: authentik
-      POSTGRES_USER: authentik
-    healthcheck:
-      interval: 30s
-      retries: 5
-      start_period: 20s
-      test:
-      - CMD-SHELL
-      - pg_isready -d authentik -U authentik
-      timeout: 5s
-    volumes:
-      - ${CONFIG_ROOT}/authentik-postgres/data:/var/lib/postgresql/data
-
   authentik-server:
     image: ghcr.io/goauthentik/server:2026.5
+    mac_address: "0A:01:01:00:00:00"
     labels:
       <<: *pinned_version
     <<: *common_service
@@ -74,6 +52,7 @@ services:
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:2026.5
+    mac_address: "0A:01:02:00:00:00"
     labels:
       <<: *pinned_version
     <<: *common_service
@@ -98,8 +77,33 @@ services:
       - ${CONFIG_ROOT}/authentik-worker/certs:/certs
       - ${CONFIG_ROOT}/authentik-worker/custom-templates:/templates
 
+  authentik-postgresql:
+    image: docker.io/library/postgres:16-alpine
+    mac_address: "0A:01:03:00:00:00"
+    labels:
+      <<: *pinned_version
+    <<: *common_service
+    env_file:
+      - .env
+    environment:
+      <<: *common_env
+      POSTGRES_DB: authentik
+      POSTGRES_PASSWORD: authentik
+      POSTGRES_USER: authentik
+    healthcheck:
+      interval: 30s
+      retries: 5
+      start_period: 20s
+      test:
+      - CMD-SHELL
+      - pg_isready -d authentik -U authentik
+      timeout: 5s
+    volumes:
+      - ${CONFIG_ROOT}/authentik-postgres/data:/var/lib/postgresql/data
+
   vaultwarden:
     image: vaultwarden/server:1.37.1
+    mac_address: "0A:02:01:00:00:00"
     labels:
       <<: *pinned_version
     <<: *common_service
