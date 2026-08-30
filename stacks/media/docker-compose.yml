@@ -25,6 +25,7 @@ name: homelab-media
 services:
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
     mac_address: "16:01:01:00:00:00"
     labels:
       <<: *auto_update
@@ -39,6 +40,7 @@ services:
 
   fileflows:
     image: revenz/fileflows
+    container_name: fileflows
     mac_address: "16:02:01:00:00:00"
     labels:
       <<: *auto_update
@@ -55,6 +57,7 @@ services:
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
     mac_address: "16:03:01:00:00:00"
     labels:
       <<: *auto_update
@@ -70,6 +73,7 @@ services:
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:10.11.11
+    container_name: jellyfin
     mac_address: "16:04:01:00:00:00"
     labels:
       <<: *pinned_version
@@ -90,6 +94,7 @@ services:
 
   komga:
     image: ghcr.io/gotson/komga:1.x
+    container_name: komga
     mac_address: "16:05:01:00:00:00"
     labels:
       <<: *monitor_updates_only
@@ -107,6 +112,7 @@ services:
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
     mac_address: "16:06:01:00:00:00"
     labels:
       <<: *auto_update
@@ -125,6 +131,7 @@ services:
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
     mac_address: "16:07:01:00:00:00"
     labels:
       <<: *auto_update
@@ -140,6 +147,7 @@ services:
 
   seerr:
     image: ghcr.io/seerr-team/seerr:v3
+    container_name: seerr
     mac_address: "16:08:01:00:00:00"
     labels:
       <<: *auto_update
@@ -154,6 +162,7 @@ services:
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
     mac_address: "16:09:01:00:00:00"
     labels:
       <<: *auto_update

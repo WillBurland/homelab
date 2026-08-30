@@ -25,6 +25,7 @@ name: homelab-authentication
 services:
   authentik-server:
     image: ghcr.io/goauthentik/server:2026.5
+    container_name: authentik-server
     mac_address: "0A:01:01:00:00:00"
     labels:
       <<: *pinned_version
@@ -52,6 +53,7 @@ services:
 
   authentik-worker:
     image: ghcr.io/goauthentik/server:2026.5
+    container_name: authentik-worker
     mac_address: "0A:01:02:00:00:00"
     labels:
       <<: *pinned_version
@@ -79,6 +81,7 @@ services:
 
   authentik-postgresql:
     image: docker.io/library/postgres:16-alpine
+    container_name: authentik-postgres
     mac_address: "0A:01:03:00:00:00"
     labels:
       <<: *pinned_version
@@ -103,6 +106,7 @@ services:
 
   vaultwarden:
     image: vaultwarden/server:1.37.1
+    container_name: vaultwarden
     mac_address: "0A:02:01:00:00:00"
     labels:
       <<: *pinned_version

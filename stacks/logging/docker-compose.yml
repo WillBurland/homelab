@@ -25,6 +25,7 @@ name: homelab-logging
 services:
   grafana:
     image: grafana/grafana:13.0
+    container_name: grafana
     mac_address: "12:01:01:00:00:00"
     labels:
       <<: *monitor_updates_only
@@ -49,6 +50,7 @@ services:
 
   prometheus:
     image: ghcr.io/prometheus/prometheus:v3
+    container_name: prometheus
     mac_address: "12:02:01:00:00:00"
     labels:
       <<: *monitor_updates_only
@@ -70,6 +72,7 @@ services:
 
   scrutiny:
     image: ghcr.io/analogj/scrutiny:v0-omnibus
+    container_name: scrutiny
     mac_address: "12:03:01:00:00:00"
     labels:
       <<: *monitor_updates_only
@@ -96,6 +99,7 @@ services:
 
   uptime-kuma:
     image: ghcr.io/louislam/uptime-kuma:2
+    container_name: uptime-kuma
     mac_address: "12:04:01:00:00:00"
     labels:
       <<: *monitor_updates_only

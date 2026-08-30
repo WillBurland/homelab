@@ -25,6 +25,7 @@ name: homelab-development
 services:
   forgejo:
     image: codeberg.org/forgejo/forgejo:16
+    container_name: forgejo
     mac_address: "0E:01:01:00:00:00"
     labels:
       <<: *pinned_version
@@ -49,6 +50,7 @@ services:
 
   forgejo-db:
     image: postgres:14
+    container_name: forgejo-db
     mac_address: "0E:01:02:00:00:00"
     labels:
       <<: *pinned_version

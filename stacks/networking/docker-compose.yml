@@ -25,6 +25,7 @@ name: homelab-networking
 services:
   cloudflared:
     image: cloudflare/cloudflared:2026.7.3
+    container_name: cloudflared
     mac_address: "1A:01:01:00:00:00"
     labels:
       <<: *pinned_version
@@ -39,6 +40,7 @@ services:
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
     mac_address: "1A:02:01:00:00:00"
     labels:
       <<: *auto_update
@@ -55,6 +57,7 @@ services:
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:2
+    container_name: nginx-proxy-manager
     mac_address: "1A:03:01:00:00:00"
     labels:
       <<: *monitor_updates_only
@@ -71,6 +74,7 @@ services:
 
   pihole:
     image: pihole/pihole:2026.07.2
+    container_name: pihole
     mac_address: "1A:04:01:00:00:00"
     labels:
       <<: *pinned_version
@@ -88,6 +92,7 @@ services:
 
   tailscale:
     image: tailscale/tailscale:stable
+    container_name: tailscale
     mac_address: "1A:05:01:00:00:00"
     labels:
       <<: *pinned_version
