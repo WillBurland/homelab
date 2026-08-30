@@ -1,74 +1,75 @@
 # User Authentication
 
-I am currently in the process of migrating from Cloudflare Zero Trust + Google OAuth to Authentik.
+Services with native OIDC functionality use Authentik directly, while others will use forward-auth via NPM.
 
-Services with native OIDC functionality will use Authentik directly, while others will use forward-auth via NPM.
+Some services are not to be behind ID verification at all, namely Vaultwarden and Authentik itself. This is to ensure access is always granted for browser extension access for example.
+In these cases, strong credentials and 2FA are used for obvious reasons.
 
 ## Applications
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Homepage            | No       | None         |
-| Immich Server       | Yes      | OIDC         |
-| Immich ML           | -        | -            |
-| Immich Postgres     | -        | -            |
-| Immich Redis        | -        | -            |
-| Syncthing           | No       | Login        |
-| Zerobyte            | No       | Login        |
+| Service         | Auth Method  |
+|-----------------|--------------|
+| Homepage        | Forward auth |
+| Immich Server   | OIDC         |
+| Immich ML       | -            |
+| Immich Postgres | -            |
+| Immich Redis    | -            |
+| Syncthing       | Forward auth |
+| Zerobyte        | Forward auth |
 
 ## Authentication
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Authentik Server    | No       | Login        |
-| Authentik Worker    | -        | -            |
-| Authentik Postgres  | -        | -            |
-| Vaultwarden         | No       | Login        |
+| Service            | Auth Method  |
+|--------------------|--------------|
+| Authentik Server   | Login        |
+| Authentik Worker   | -            |
+| Authentik Postgres | -            |
+| Vaultwarden        | Login        |
 
 ## Development
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Forgejo             | Yes      | OIDC         |
-| Forgejo DB          | -        | -            |
+| Service    | Auth Method  |
+|------------|--------------|
+| Forgejo    | OIDC         |
+| Forgejo DB | -            |
 
 ## Logging
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Grafana             | Yes      | OIDC         |
-| Prometheus          | No       | None         |
-| Scrutiny            | No       | Login        |
-| Uptime Kuma         | No       | None         |
+| Service     | Auth Method  |
+|-------------|--------------|
+| Grafana     | OIDC         |
+| Prometheus  | Forward auth |
+| Scrutiny    | Forward auth |
+| Uptime Kuma | Forward auth |
 
 ## Media
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Bazarr              | No       | None         |
-| FileFlows           | No       | None         |
-| Jackett             | No       | None         |
-| Jellyfin            | No       | Login        |
-| Komga               | Yes      | Forward auth |
-| qBittorrent         | No       | None         |
-| Radarr              | No       | None         |
-| Seerr               | No       | Login        |
-| Sonarr              | No       | None         |
+| Service     | Auth Method  |
+|-------------|--------------|
+| Bazarr      | Forward auth |
+| FileFlows   | Forward auth |
+| Jackett     | Forward auth |
+| Jellyfin    | Forward auth |
+| Komga       | Forward auth |
+| qBittorrent | Forward auth |
+| Radarr      | Forward auth |
+| Seerr       | Forward auth |
+| Sonarr      | Forward auth |
 
 ## Networking
 
-| Service             | Migrated | Auth Method  |
-|---------------------|----------|--------------|
-| Cloudflared         | -        | -            |
-| FlareSolverr        | -        | -            |
-| Nginx Proxy Manager | No       | Login        |
-| Pi-Hole             | No       | Login        |
-| Tailscale           | -        | -            |
+| Service             | Auth Method  |
+|---------------------|--------------|
+| Cloudflared         | -            |
+| FlareSolverr        | -            |
+| Nginx Proxy Manager | Forward auth |
+| Pi-Hole             | Forward auth |
+| Tailscale           | -            |
 
 ## System
 
-| Service      | Migrated | Auth Method  |
-|--------------|----------|--------------|
-| Docker Proxy | -        | -            |
-| Pacoloco     | -        | -            |
-| Watchtower   | -        | -            |
+| Service      | Auth Method  |
+|--------------|--------------|
+| Docker Proxy | -            |
+| Pacoloco     | -            |
+| Watchtower   | -            |

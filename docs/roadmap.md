@@ -12,7 +12,8 @@
 - [X] Deploy Forgejo
 - [X] Deploy personal website
 - [X] SSO/OIDC login (e.g. Authentik)
-  - [ ] Migrate relevant services to use it
+  - [X] Migrate relevant services to use it
+  - [ ] Investigate non-native OIDC integration for some services
 - [ ] Expanded logging & monitoring
   - [ ] Deploy Node Exporters
   - [ ] Add container healthchecks
