@@ -99,24 +99,9 @@ services:
     healthcheck:
       test: redis-cli ping || exit 1
 
-  pacoloco:
-    image: ghcr.io/anatol/pacoloco:latest
-    mac_address: "06:03:01:00:00:00"
-    labels:
-      <<: *auto_update
-    <<: *common_service
-    environment:
-      <<: *common_env
-    user: "${PUID}:${PGID}"
-    ports:
-      - ${PACOLOCO_PORT}:9129
-    volumes:
-      - ${CONFIG_ROOT}/pacoloco/cache:/var/cache/pacoloco
-      - ${CONFIG_ROOT}/pacoloco/config/pacoloco.yaml:/etc/pacoloco.yaml
-
   syncthing:
     image: lscr.io/linuxserver/syncthing:2.1.3
-    mac_address: "06:04:01:00:00:00"
+    mac_address: "06:03:01:00:00:00"
     labels:
       <<: *pinned_version
     <<: *common_service
@@ -130,26 +115,9 @@ services:
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
 
-  watchtower:
-    image: ghcr.io/nicholas-fedor/watchtower:1
-    mac_address: "06:05:01:00:00:00"
-    labels:
-      <<: *pinned_version
-    <<: *common_service
-    environment:
-      <<: *common_env
-      WATCHTOWER_LABEL_ENABLE: "true"
-      WATCHTOWER_CLEANUP: "true"
-      WATCHTOWER_POLL_INTERVAL: "86400"
-      WATCHTOWER_NOTIFICATIONS: "shoutrrr"
-      WATCHTOWER_NOTIFICATION_URL: "discord://${WATCHTOWER_DISCORD_WEBHOOK}"
-      WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:v0
-    mac_address: "06:06:01:00:00:00"
+    mac_address: "06:04:01:00:00:00"
     labels:
       <<: *auto_update
     <<: *common_service

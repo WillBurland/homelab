@@ -13,9 +13,7 @@ Services with native OIDC functionality will use Authentik directly, while other
 | Immich ML           | -        | -            |
 | Immich Postgres     | -        | -            |
 | Immich Redis        | -        | -            |
-| Pacoloco            | -        | -            |
 | Syncthing           | No       | Login        |
-| Watchtower          | -        | -            |
 | Zerobyte            | No       | Login        |
 
 ## Authentication
@@ -66,3 +64,11 @@ Services with native OIDC functionality will use Authentik directly, while other
 | Nginx Proxy Manager | No       | Login        |
 | Pi-Hole             | No       | Login        |
 | Tailscale           | -        | -            |
+
+## System
+
+| Service      | Migrated | Auth Method  |
+|--------------|----------|--------------|
+| Docker Proxy | -        | -            |
+| Pacoloco     | -        | -            |
+| Watchtower   | -        | -            |

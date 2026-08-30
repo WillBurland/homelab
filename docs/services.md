@@ -9,9 +9,7 @@
 | Immich ML           | Immich ML inference      |
 | Immich Postgres     | Immich Postgres database |
 | Immich Redis        | Immich job queue/cache   |
-| Pacoloco            | Pacman cache/prefetcher  |
 | Syncthing           | File synchronisation     |
-| Watchtower          | Docker container updater |
 | Zerobyte            | Backup automation        |
 
 ## Authentication
@@ -62,3 +60,11 @@
 | Nginx Proxy Manager | Reverse proxy          |
 | Pi-Hole             | DNS adblocker          |
 | Tailscale           | Secure VPN             |
+
+## System
+
+| Service      | Description                 |
+|--------------|-----------------------------|
+| Docker Proxy | Proxy for the Docker socket |
+| Pacoloco     | Pacman cache/prefetcher     |
+| Watchtower   | Docker container updater    |

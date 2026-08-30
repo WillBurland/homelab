@@ -29,6 +29,7 @@ Format: `AA:BB:CC:00:00:00`
 | `12`   | Logging               |
 | `16`   | Media                 |
 | `1A`   | Networking            |
+| `1E`   | System                |
 
 The MAC address first octet has specific restrictions for the first octet, forcing them to be `2 mod 4`, hence the spacing.
 

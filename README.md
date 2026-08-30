@@ -28,7 +28,8 @@ TrueNAS
 │  ├─ Development
 │  ├─ Logging
 │  ├─ Media
-│  └─ Networking
+│  ├─ Networking
+│  └─ System
 │
 └─ ZFS Pools
    ├─ Apps

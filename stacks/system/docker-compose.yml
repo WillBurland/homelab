@@ -1,0 +1,77 @@
+x-common-env: &common_env
+  PUID: ${PUID}
+  PGID: ${PGID}
+  TZ: ${TZ}
+
+x-common-service: &common_service
+  networks:
+    - homelab_network
+  restart: unless-stopped
+  extra_hosts:
+    - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
+
+x-watchtower-auto-update: &auto_update
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.cooldown-delay: "24h"
+
+x-watchtower-monitor-only: &monitor_updates_only
+  com.centurylinklabs.watchtower.enable: "true"
+  com.centurylinklabs.watchtower.monitor-only: "true"
+
+x-watchtower-pinned: &pinned_version
+  com.centurylinklabs.watchtower.enable: "false"
+
+name: homelab-system
+services:
+  docker-proxy:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    mac_address: "1E:01:01:00:00:00"
+    labels:
+      <<: *auto_update
+    <<: *common_service
+    environment:
+      <<: *common_env
+      CONTAINERS: 1
+      SERVICES: 1
+      TASKS: 1
+      POST: 0
+    ports:
+      - ${DOCKER_PROXY_PORT}:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  pacoloco:
+    image: ghcr.io/anatol/pacoloco:latest
+    mac_address: "1E:01:01:00:00:00"
+    labels:
+      <<: *auto_update
+    <<: *common_service
+    environment:
+      <<: *common_env
+    user: "${PUID}:${PGID}"
+    ports:
+      - ${PACOLOCO_PORT}:9129
+    volumes:
+      - ${CONFIG_ROOT}/pacoloco/cache:/var/cache/pacoloco
+      - ${CONFIG_ROOT}/pacoloco/config/pacoloco.yaml:/etc/pacoloco.yaml
+
+  watchtower:
+    image: ghcr.io/nicholas-fedor/watchtower:1
+    mac_address: "1E:01:01:00:00:00"
+    labels:
+      <<: *pinned_version
+    <<: *common_service
+    environment:
+      <<: *common_env
+      WATCHTOWER_LABEL_ENABLE: "true"
+      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_POLL_INTERVAL: "86400"
+      WATCHTOWER_NOTIFICATIONS: "shoutrrr"
+      WATCHTOWER_NOTIFICATION_URL: "discord://${WATCHTOWER_DISCORD_WEBHOOK}"
+      WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  homelab_network:
+    external: true
