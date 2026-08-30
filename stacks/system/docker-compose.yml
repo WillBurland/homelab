@@ -44,7 +44,7 @@ services:
   pacoloco:
     image: ghcr.io/anatol/pacoloco:latest
     container_name: pacoloco
-    mac_address: "1E:01:01:00:00:00"
+    mac_address: "1E:02:01:00:00:00"
     labels:
       <<: *auto_update
     <<: *common_service
@@ -60,7 +60,7 @@ services:
   watchtower:
     image: ghcr.io/nicholas-fedor/watchtower:1
     container_name: watchtower
-    mac_address: "1E:01:01:00:00:00"
+    mac_address: "1E:03:01:00:00:00"
     labels:
       <<: *pinned_version
     <<: *common_service

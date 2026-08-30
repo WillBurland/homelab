@@ -9,7 +9,7 @@ Services with native OIDC functionality will use Authentik directly, while other
 | Service             | Migrated | Auth Method  |
 |---------------------|----------|--------------|
 | Homepage            | No       | None         |
-| Immich              | Yes      | OIDC         |
+| Immich Server       | Yes      | OIDC         |
 | Immich ML           | -        | -            |
 | Immich Postgres     | -        | -            |
 | Immich Redis        | -        | -            |

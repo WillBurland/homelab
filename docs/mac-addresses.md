@@ -31,7 +31,7 @@ Format: `AA:BB:CC:00:00:00`
 | `1A`   | Networking            |
 | `1E`   | System                |
 
-The MAC address first octet has specific restrictions for the first octet, forcing them to be `2 mod 4`, hence the spacing.
+The MAC address standard has specific restrictions for the first octet, forcing them to be `2 mod 4`, hence the spacing.
 
 ## Examples
 
@@ -45,7 +45,7 @@ The MAC address first octet has specific restrictions for the first octet, forci
 
 | Container         | MAC Address         |
 |-------------------|---------------------|
-| `immich`          | `06:02:01:00:00:00` |
+| `immich-server`   | `06:02:01:00:00:00` |
 | `immich-ml`       | `06:02:02:00:00:00` |
 | `immich-postgres` | `06:02:03:00:00:00` |
 | `immich-redis`    | `06:02:04:00:00:00` |

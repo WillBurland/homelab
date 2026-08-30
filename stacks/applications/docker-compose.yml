@@ -32,7 +32,7 @@ services:
     <<: *common_service
     environment:
       <<: *common_env
-      HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT},home.${SERVER_DOMAIN},homepage:${HOMEPAGE_PORT}
+      HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT},home.${SERVER_DOMAIN},homepage:3000
     ports:
       - ${HOMEPAGE_PORT}:3000
     volumes:
@@ -55,7 +55,7 @@ services:
       DB_PASSWORD: immich
       REDIS_HOSTNAME: immich-redis
     ports:
-      - ${IMMICH_PORT}:2283
+      - ${IMMICH_SERVER_PORT}:2283
     volumes:
       - ${CONFIG_ROOT}/immich-server/data:/data
       - /etc/localtime:/etc/localtime:ro

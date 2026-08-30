@@ -5,7 +5,7 @@
 | Service             | Description              |
 |---------------------|--------------------------|
 | Homepage            | General homepage         |
-| Immich              | Photo storage/server     |
+| Immich Server       | Photo storage/server     |
 | Immich ML           | Immich ML inference      |
 | Immich Postgres     | Immich Postgres database |
 | Immich Redis        | Immich job queue/cache   |
