@@ -10,6 +10,12 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-healthcheck-defaults: &healthcheck_defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
 x-watchtower-auto-update: &auto_update
   com.centurylinklabs.watchtower.enable: "true"
   com.centurylinklabs.watchtower.cooldown-delay: "24h"
@@ -37,6 +43,9 @@ services:
     volumes:
       - ${CONFIG_ROOT}/bazarr/config:/config
       - ${NAS}:${NAS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:6767"]
 
   fileflows:
     image: revenz/fileflows
@@ -54,6 +63,9 @@ services:
       - ${CONFIG_ROOT}/fileflows/temp:/temp
       - ${NAS}:${NAS}
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000"]
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
@@ -70,6 +82,9 @@ services:
       - ${JACKETT_PORT}:9117
     volumes:
       - ${CONFIG_ROOT}/jackett/config:/config
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9117"]
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:10.11.11
@@ -86,6 +101,10 @@ services:
       - ${CONFIG_ROOT}/jellyfin/config:/config
       - ${CONFIG_ROOT}/jellyfin/config/index.html:/usr/share/jellyfin/web/index.html
       - ${NAS}:${NAS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
+      start_period: 90s
     devices:
       - /dev/dri:/dev/dri
     group_add:
@@ -109,6 +128,9 @@ services:
       - ${CONFIG_ROOT}/komga/data:/data
       - ${CONFIG_ROOT}/komga/tmp:/tmp
       - ${NAS}:${NAS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "bash", "-c", "exec 5<>/dev/tcp/127.0.0.1/25600"]
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -128,6 +150,9 @@ services:
     volumes:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
       - ${APPS}:${APPS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -144,6 +169,9 @@ services:
       - ${CONFIG_ROOT}/radarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:7878/ping"]
 
   seerr:
     image: ghcr.io/seerr-team/seerr:v3
@@ -159,6 +187,9 @@ services:
       - ${SEERR_PORT}:5055
     volumes:
       - ${CONFIG_ROOT}/seerr/config:/app/config
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:5055/"]
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -175,6 +206,9 @@ services:
       - ${CONFIG_ROOT}/sonarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8989/ping"]
 
 networks:
   homelab_network:

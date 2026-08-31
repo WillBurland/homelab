@@ -10,6 +10,12 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-healthcheck-defaults: &healthcheck_defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
 x-watchtower-auto-update: &auto_update
   com.centurylinklabs.watchtower.enable: "true"
   com.centurylinklabs.watchtower.cooldown-delay: "24h"
@@ -120,6 +126,9 @@ services:
       - ${SYNCTHING_PORT_DISCOVERY}:21027/udp
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8384/rest/noauth/health"]
 
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:v0
@@ -143,6 +152,9 @@ services:
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
       - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:4096"]
     devices:
       - /dev/fuse:/dev/fuse
     cap_add:

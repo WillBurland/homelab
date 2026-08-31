@@ -10,6 +10,12 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-healthcheck-defaults: &healthcheck_defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
 x-watchtower-auto-update: &auto_update
   com.centurylinklabs.watchtower.enable: "true"
   com.centurylinklabs.watchtower.cooldown-delay: "24h"
@@ -47,6 +53,13 @@ services:
       - ${GRAFANA_PORT}:3000
     volumes:
       - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:3000/api/health || exit 1"]
+      start_period: 45s
+    depends_on:
+      prometheus:
+        condition: service_healthy
 
   prometheus:
     image: ghcr.io/prometheus/prometheus:v3
@@ -62,6 +75,9 @@ services:
     volumes:
       - ${CONFIG_ROOT}/prometheus/data:/prometheus
       - ${CONFIG_ROOT}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
@@ -87,6 +103,9 @@ services:
       - ${CONFIG_ROOT}/scrutiny/config:/config
       - ${CONFIG_ROOT}/scrutiny/influxdb:/opt/scrutiny/influxdb
       - /run/udev:/run/udev:ro
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/api/health"]
     devices:
       - /dev/sda:/dev/sda
       - /dev/sdb:/dev/sdb

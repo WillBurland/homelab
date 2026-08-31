@@ -14,8 +14,8 @@
 - [X] SSO/OIDC login (e.g. Authentik)
   - [X] Migrate relevant services to use it
   - [ ] Investigate non-native OIDC integration for some services
-- [ ] Expanded logging & monitoring
+- [X] Expanded logging & monitoring
   - [ ] Deploy Node Exporters
-  - [ ] Add container healthchecks
+  - [X] Add container healthchecks
 - [ ] Deploy Home Assistant
 - [ ] Separate/restrict Docker networks

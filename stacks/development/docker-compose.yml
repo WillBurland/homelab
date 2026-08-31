@@ -10,6 +10,12 @@ x-common-service: &common_service
   extra_hosts:
     - "authentik.${SERVER_DOMAIN}:${SERVER_IP}"
 
+x-healthcheck-defaults: &healthcheck_defaults
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
+
 x-watchtower-auto-update: &auto_update
   com.centurylinklabs.watchtower.enable: "true"
   com.centurylinklabs.watchtower.cooldown-delay: "24h"
@@ -45,8 +51,13 @@ services:
     volumes:
       - ${CONFIG_ROOT}/forgejo/data:/data
       - /etc/localtime:/etc/localtime:ro
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/api/healthz"]
+      start_period: 60s
     depends_on:
-      - forgejo-db
+      forgejo-db:
+        condition: service_healthy
 
   forgejo-db:
     image: postgres:14
@@ -64,6 +75,9 @@ services:
       - ${FORGEJO_DB_PORT}:5432
     volumes:
       - ${CONFIG_ROOT}/forgejo-db/data:/var/lib/postgresql/data
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD-SHELL", "pg_isready -U forgejo -d forgejo"]
 
 networks:
   homelab_network:
