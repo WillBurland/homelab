@@ -10,13 +10,14 @@ To fix this in this setup, we need to assign every container a permanent, explic
 
 ## The Scheme
 
-Format: `AA:BB:CC:00:00:00`
+Format: `AA:BB:CC:DD:00:00`
 
 | Octet | Meaning   | Notes                                                              |
 |-------|-----------|--------------------------------------------------------------------|
 | `AA`  | Stack     | Fixed per compose stack                                            |
 | `BB`  | Service   | Sequential per service within the stack, starting at `01`          |
 | `CC`  | Component | `01` for a service's primary container, `02`, `03`... for sidecars |
+| `DD`  | Exporter  | `00` for a container, `01` for its metrics exporter                |
 
 ## Stack Prefixes (`AA`)
 
@@ -43,9 +44,11 @@ The MAC address standard has specific restrictions for the first octet, forcing 
 
 ### Multi-container Service
 
-| Container         | MAC Address         |
-|-------------------|---------------------|
-| `immich-server`   | `06:02:01:00:00:00` |
-| `immich-ml`       | `06:02:02:00:00:00` |
-| `immich-postgres` | `06:02:03:00:00:00` |
-| `immich-redis`    | `06:02:04:00:00:00` |
+| Container                  | MAC Address         |
+|----------------------------|---------------------|
+| `immich-server`            | `06:02:01:00:00:00` |
+| `immich-ml`                | `06:02:02:00:00:00` |
+| `immich-postgres`          | `06:02:03:00:00:00` |
+| `immich-postgres-exporter` | `06:02:03:01:00:00` |
+| `immich-redis`             | `06:02:04:00:00:00` |
+| `immich-redis-exporter`    | `06:02:04:01:00:00` |

@@ -63,6 +63,7 @@ services:
       DB_USERNAME: immich
       DB_PASSWORD: immich
       REDIS_HOSTNAME: immich-redis
+      IMMICH_TELEMETRY_INCLUDE: all
     ports:
       - ${IMMICH_SERVER_PORT}:2283
     volumes:
@@ -98,6 +99,18 @@ services:
     volumes:
       - ${CONFIG_ROOT}/immich-postgres/data:/var/lib/postgresql/data
 
+  immich-postgres-exporter:
+    image: ghcr.io/prometheus-community/postgres-exporter:v0
+    container_name: immich-postgres-exporter
+    mac_address: "06:02:03:01:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    depends_on:
+      - immich-postgres
+    environment:
+      DATA_SOURCE_NAME: "postgresql://immich:immich@immich-postgres:5432/immich?sslmode=disable"
+
   immich-redis:
     image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
     container_name: immich-redis
@@ -109,6 +122,18 @@ services:
       <<: *common_env
     healthcheck:
       test: redis-cli ping || exit 1
+
+  immich-redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: immich-redis-exporter
+    mac_address: "06:02:04:01:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    depends_on:
+      - immich-redis
+    environment:
+      REDIS_ADDR: "redis://immich-redis:6379"
 
   syncthing:
     image: lscr.io/linuxserver/syncthing:2.1.3
