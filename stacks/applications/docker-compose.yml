@@ -107,7 +107,8 @@ services:
     labels:
       <<: *auto_update
     depends_on:
-      - immich-postgres
+      immich-postgres:
+        condition: service_healthy
     environment:
       DATA_SOURCE_NAME: "postgresql://immich:immich@immich-postgres:5432/immich?sslmode=disable"
 
@@ -131,7 +132,8 @@ services:
     labels:
       <<: *auto_update
     depends_on:
-      - immich-redis
+      immich-redis:
+        condition: service_healthy
     environment:
       REDIS_ADDR: "redis://immich-redis:6379"
 

@@ -2,12 +2,14 @@
 
 ## Todo Next
 
-- [ ] **DEPLOY** - Exporters for all services.
-- [ ] **CONFIG** - Prometheus scraping for all services.
-- [ ] **CONFIG** - Grafana dashboards for all services.
+- [ ] **DEPLOY** - Exporters for services.
+- [ ] **CONFIG** - Prometheus scraping for all exporters.
+- [ ] **CONFIG** - Grafana dashboards for all Prometheus targets.
 
 ## Future Ideas
 
+- [ ] **MIGRATE** - Raw Docker Socket mounts to Docker Socket Proxy container where possible.
+- [ ] **CONFIG** - Remove any unnecessary port exposure, use Docker DNS when possible.
 - [ ] **RESEARCH** - Non-native OIDC integration for services using forward-auth.
 - [ ] **CONFIG** - Separate/restrict Docker networks.
 - [ ] **DEPLOY** - Container new release RSS notifications.
