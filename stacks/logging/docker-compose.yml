@@ -33,9 +33,12 @@ services:
     image: grafana/grafana:13.0
     container_name: grafana
     mac_address: "12:01:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *monitor_updates_only
-    <<: *common_service
+    depends_on:
+      prometheus:
+        condition: service_healthy
     environment:
       <<: *common_env
       GF_AUTH_GENERIC_OAUTH_ENABLED: "true"
@@ -49,35 +52,22 @@ services:
       GF_AUTH_SIGNOUT_REDIRECT_URL: "https://authentik.${SERVER_DOMAIN}/application/o/grafana/end-session/"
       GF_AUTH_OAUTH_AUTO_LOGIN: "true"
       GF_SERVER_ROOT_URL: "https://grafana.${SERVER_DOMAIN}"
-    ports:
-      - ${GRAFANA_PORT}:3000
-    volumes:
-      - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD-SHELL", "wget --spider -q http://127.0.0.1:3000/api/health || exit 1"]
       start_period: 45s
-    depends_on:
-      prometheus:
-        condition: service_healthy
+    ports:
+      - ${GRAFANA_PORT}:3000
+    volumes:
+      - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
 
   prometheus:
     image: ghcr.io/prometheus/prometheus:v3
     container_name: prometheus
     mac_address: "12:02:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *monitor_updates_only
-    <<: *common_service
-    environment:
-      <<: *common_env
-    ports:
-      - ${PROMETHEUS_PORT}:9090
-    volumes:
-      - ${CONFIG_ROOT}/prometheus/data:/prometheus
-      - ${CONFIG_ROOT}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
@@ -85,27 +75,27 @@ services:
       - "--storage.tsdb.retention.time=90d"
       - "--storage.tsdb.retention.size=15GB"
       - "--storage.tsdb.wal-compression"
+    environment:
+      <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
+    ports:
+      - ${PROMETHEUS_PORT}:9090
+    volumes:
+      - ${CONFIG_ROOT}/prometheus/data:/prometheus
+      - ${CONFIG_ROOT}/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
 
   scrutiny:
     image: ghcr.io/analogj/scrutiny:v0-omnibus
     container_name: scrutiny
     mac_address: "12:03:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *monitor_updates_only
-    <<: *common_service
     privileged: true
-    environment:
-      <<: *common_env
-    ports:
-      - ${SCRUTINY_PORT_UI}:8080
-      - ${SCRUTINY_PORT_DB}:8086
-    volumes:
-      - ${CONFIG_ROOT}/scrutiny/config:/config
-      - ${CONFIG_ROOT}/scrutiny/influxdb:/opt/scrutiny/influxdb
-      - /run/udev:/run/udev:ro
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/api/health"]
+    cap_add:
+      - SYS_RAWIO
     devices:
       - /dev/sda:/dev/sda
       - /dev/sdb:/dev/sdb
@@ -113,16 +103,26 @@ services:
       - /dev/sdd:/dev/sdd
       - /dev/nvme0n1:/dev/nvme0n1
       - /dev/nvme1n1:/dev/nvme1n1
-    cap_add:
-      - SYS_RAWIO
+    environment:
+      <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/api/health"]
+    ports:
+      - ${SCRUTINY_PORT_UI}:8080
+      - ${SCRUTINY_PORT_DB}:8086
+    volumes:
+      - ${CONFIG_ROOT}/scrutiny/config:/config
+      - ${CONFIG_ROOT}/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - /run/udev:/run/udev:ro
 
   uptime-kuma:
     image: ghcr.io/louislam/uptime-kuma:2
     container_name: uptime-kuma
     mac_address: "12:04:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *monitor_updates_only
-    <<: *common_service
     environment:
       <<: *common_env
     ports:

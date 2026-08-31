@@ -33,9 +33,9 @@ services:
     image: ghcr.io/gethomepage/homepage:v1
     container_name: homepage
     mac_address: "06:01:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
       HOMEPAGE_ALLOWED_HOSTS: ${SERVER_IP}:${HOMEPAGE_PORT},home.${SERVER_DOMAIN},homepage:3000
@@ -50,9 +50,12 @@ services:
     image: ghcr.io/immich-app/immich-server:v3
     container_name: immich-server
     mac_address: "06:02:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
+    depends_on:
+      - immich-redis
+      - immich-postgres
     environment:
       <<: *common_env
       DB_HOSTNAME: immich-postgres
@@ -65,17 +68,14 @@ services:
     volumes:
       - ${CONFIG_ROOT}/immich-server/data:/data
       - /etc/localtime:/etc/localtime:ro
-    depends_on:
-      - immich-redis
-      - immich-postgres
 
   immich-ml:
     image: ghcr.io/immich-app/immich-machine-learning:v3
     container_name: immich-ml
     mac_address: "06:02:02:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
     environment:
       <<: *common_env
     volumes:
@@ -85,26 +85,26 @@ services:
     image: ghcr.io/immich-app/postgres:14-vectorchord0.4.3-pgvectors0.2.0@sha256:bcf63357191b76a916ae5eb93464d65c07511da41e3bf7a8416db519b40b1c23
     container_name: immich-postgres
     mac_address: "06:02:03:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
     environment:
       <<: *common_env
       POSTGRES_DB: immich
       POSTGRES_USER: immich
       POSTGRES_PASSWORD: immich
       POSTGRES_INITDB_ARGS: '--data-checksums'
+    shm_size: 128m
     volumes:
       - ${CONFIG_ROOT}/immich-postgres/data:/var/lib/postgresql/data
-    shm_size: 128m
 
   immich-redis:
     image: docker.io/valkey/valkey:9@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
     container_name: immich-redis
     mac_address: "06:02:04:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
     environment:
       <<: *common_env
     healthcheck:
@@ -114,11 +114,14 @@ services:
     image: lscr.io/linuxserver/syncthing:2.1.3
     container_name: syncthing
     mac_address: "06:03:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8384/rest/noauth/health"]
     ports:
       - ${SYNCTHING_PORT_UI}:8384
       - ${SYNCTHING_PORT_TRAFFIC}:22000
@@ -126,18 +129,19 @@ services:
       - ${SYNCTHING_PORT_DISCOVERY}:21027/udp
     volumes:
       - ${CONFIG_ROOT}/syncthing/config:/config
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8384/rest/noauth/health"]
 
   zerobyte:
     image: ghcr.io/nicotsx/zerobyte:v0
     container_name: zerobyte
     mac_address: "06:04:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     privileged: true
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
     environment:
       <<: *common_env
       APP_SECRET: ${ZEROBYTE_SECRET}
@@ -145,6 +149,9 @@ services:
       TRUSTED_ORIGINS: https://zerobyte.${SERVER_DOMAIN}
       ENABLE_DEV_PANEL: true
       LOG_LEVEL: debug
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:4096"]
     ports:
       - ${ZEROBYTE_PORT}:4096
     volumes:
@@ -152,13 +159,6 @@ services:
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
       - /etc/localtime:/etc/localtime:ro
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:4096"]
-    devices:
-      - /dev/fuse:/dev/fuse
-    cap_add:
-      - SYS_ADMIN
 
 networks:
   homelab_network:

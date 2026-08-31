@@ -33,29 +33,32 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     mac_address: "16:01:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:6767"]
     ports:
       - ${BAZARR_PORT}:6767
     volumes:
       - ${CONFIG_ROOT}/bazarr/config:/config
       - ${NAS}:${NAS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:6767"]
 
   fileflows:
     image: revenz/fileflows
     container_name: fileflows
     mac_address: "16:02:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000"]
     ports:
       - ${FILEFLOWS_PORT}:5000
     volumes:
@@ -63,64 +66,64 @@ services:
       - ${CONFIG_ROOT}/fileflows/temp:/temp
       - ${NAS}:${NAS}
       - /var/run/docker.sock:/var/run/docker.sock:ro
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:5000"]
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
     mac_address: "16:03:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
       AUTO_UPDATE: true
       RUN_OPTS:
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:9117"]
     ports:
       - ${JACKETT_PORT}:9117
     volumes:
       - ${CONFIG_ROOT}/jackett/config:/config
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:9117"]
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:10.11.11
     container_name: jellyfin
     mac_address: "16:04:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *pinned_version
-    <<: *common_service
+    group_add:
+      - video
+      - "107"
+    devices:
+      - /dev/dri:/dev/dri
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
+      start_period: 90s
     ports:
       - ${JELLYFIN_PORT}:8096
     volumes:
       - ${CONFIG_ROOT}/jellyfin/config:/config
       - ${CONFIG_ROOT}/jellyfin/config/index.html:/usr/share/jellyfin/web/index.html
       - ${NAS}:${NAS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8096/health"]
-      start_period: 90s
-    devices:
-      - /dev/dri:/dev/dri
-    group_add:
-      - video
-      - "107"
 
   komga:
     image: ghcr.io/gotson/komga:1.x
     container_name: komga
     mac_address: "16:05:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *monitor_updates_only
-    <<: *common_service
     environment:
       <<: *common_env
       JAVA_TOOL_OPTIONS: -Xmx1g
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "bash", "-c", "exec 5<>/dev/tcp/127.0.0.1/25600"]
     ports:
       - ${KOMGA_PORT}:25600
     volumes:
@@ -128,21 +131,21 @@ services:
       - ${CONFIG_ROOT}/komga/data:/data
       - ${CONFIG_ROOT}/komga/tmp:/tmp
       - ${NAS}:${NAS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "bash", "-c", "exec 5<>/dev/tcp/127.0.0.1/25600"]
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     mac_address: "16:06:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
       WEBUI_PORT: ${QBITTORRENT_PORT_UI}
       TORRENTING_PORT: ${QBITTORRENT_PORT_TRAFFIC}
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
     ports:
       - ${QBITTORRENT_PORT_UI}:8080
       - ${QBITTORRENT_PORT_TRAFFIC}:6881
@@ -150,65 +153,62 @@ services:
     volumes:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
       - ${APPS}:${APPS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080"]
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     mac_address: "16:07:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:7878/ping"]
     ports:
       - ${RADARR_PORT}:7878
     volumes:
       - ${CONFIG_ROOT}/radarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:7878/ping"]
 
   seerr:
     image: ghcr.io/seerr-team/seerr:v3
     container_name: seerr
     mac_address: "16:08:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:5055"]
       LOG_LEVEL: debug
     ports:
       - ${SEERR_PORT}:5055
     volumes:
       - ${CONFIG_ROOT}/seerr/config:/app/config
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:5055/"]
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
     mac_address: "16:09:01:00:00:00"
+    <<: *common_service
     labels:
       <<: *auto_update
-    <<: *common_service
     environment:
       <<: *common_env
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8989/ping"]
     ports:
       - ${SONARR_PORT}:8989
     volumes:
       - ${CONFIG_ROOT}/sonarr/config:/config
       - ${NAS}:${NAS}
       - ${APPS}:${APPS}
-    healthcheck:
-      <<: *healthcheck_defaults
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8989/ping"]
 
 networks:
   homelab_network:
