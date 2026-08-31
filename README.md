@@ -47,14 +47,12 @@ TrueNAS
 
 ## Documentation
 
-| Doc                                                            | Covers                                           |
-|----------------------------------------------------------------|--------------------------------------------------|
-| [docs/authentication.md](docs/authentication.md)               | OIDC/forward-auth status per service             |
-| [docs/backup.md](docs/backup.md)                               | Backup strategies and procedures                 |
-| [docs/hardware.md](docs/hardware.md)                           | Physical server specs/details                    |
-| [docs/mac-addresses.md](docs/mac-addresses.md)                 | Pinned MAC addresses details                     |
-| [docs/new-service-checklist.md](docs/new-service-checklist.md) | Steps to follow when adding a new service        |
-| [docs/roadmap.md](docs/roadmap.md)                             | Planned and completed work                       |
-| [docs/secrets.md](docs/secrets.md)                             | Required environmental variables per stack       |
-| [docs/services.md](docs/services.md)                           | Full service table, grouped by stack, with notes |
-| [docs/setup.md](docs/setup.md)                                 | Prerequisites, deployment steps                  |
+Docs live under [`docs/`](docs/), grouped by category:
+
+| Category                                        | Covers                                                    |
+|-------------------------------------------------|-----------------------------------------------------------|
+| [getting-started/](docs/getting-started/)       | Prerequisites and deployment steps                        |
+| [service-management/](docs/service-management/) | Conventions and procedure for adding/maintaining services |
+| [reference/](docs/reference/)                   | Current-state lookups, services, auth, secrets, hardware  |
+| [operations/](docs/operations/)                 | Ongoing maintenance procedures (backups, etc.)            |
+| [misc/](docs/misc/)                             | Planning and anything that doesn't fit elsewhere          |

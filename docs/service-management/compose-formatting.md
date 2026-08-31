@@ -1,0 +1,53 @@
+# Docker Compose Service Key Ordering
+
+This defines the standard key ordering for service blocks in Docker Compose files.
+
+## Ordering
+
+```yaml
+services:
+  example:
+    image: ...
+    container_name: ...
+    mac_address: ...
+    <<: *common_service
+    labels:
+      <<: *auto_update
+      ...
+    command: ...
+    privileged: ...
+    cap_add: ...
+    user: ...
+    group_add: ...
+    devices: ...
+    depends_on: ...
+    environment:
+      <<: *common_env
+      ...
+    healthcheck: ...
+    shm_size: ...
+    ports: ...
+    volumes: ...
+```
+
+## Grouping
+
+1. Identity:
+   1. `image`
+   2. `container_name`
+   3. `mac_address`
+2. Shared base: `<<: *common_service`
+3. Metadata: `labels`
+4. Runtime behaviour: `command`
+5. Permissions & access
+   1. `privileged`
+   2. `cap_add`
+   3. `user`
+   4. `group_add`
+   5. `devices`
+6. Startup ordering: `depends_on`
+7. Configuration: `environment`
+8. Runtime monitoring: `healthcheck`
+9. Resources: `shm_size`
+10. Networking exposure: `ports`
+11. Storage: `volumes`
