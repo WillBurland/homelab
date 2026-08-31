@@ -1,26 +1,45 @@
 # Secrets
 
-Most environment variables are committed in stack files.
+Non-secret environment variables are committed in stack files.
 
-The following secrets must be injected via Portainer at deployment time:
+The following secrets must be injected via Portainer at deployment time.
+If an entry doesn't have a description, then its a standard secret/key, refer to online docs.
 
-## Applications stack
+## Applications
 
-- `ZEROBYTE_SECRET`
+| Variable          | Description |
+|-------------------|-------------|
+| `ZEROBYTE_SECRET` | -           |
 
-## Authentication stack
+## Authentication
 
-- `AUTHENTIK_SECRET_KEY`
+| Variable               | Description |
+|------------------------|-------------|
+| `AUTHENTIK_SECRET_KEY` | -           |
 
-## Logging stack
+## Development
 
-- `GRAFANA_AUTH_SECRET` - Grafana Authentik secret
+None.
 
-## Networking stack
+## Logging
 
-- `CLOUDFLARE_TUNNEL_TOKEN`
-- `TAILSCALE_AUTHKEY`
+| Variable              | Description               |
+|-----------------------|---------------------------|
+| `GRAFANA_AUTH_SECRET` |  Grafana Authentik secret |
 
-## System stack
+## Media
 
-- `WATCHTOWER_DISCORD_WEBHOOK` - Token@WebhookID
+None.
+
+## Networking
+
+| Variable                  | Description |
+|---------------------------|-------------|
+| `CLOUDFLARE_TUNNEL_TOKEN` | -           |
+| `TAILSCALE_AUTHKEY`       | -           |
+
+## System
+
+| Variable                     | Description     |
+|------------------------------|-----------------|
+| `WATCHTOWER_DISCORD_WEBHOOK` | Token@WebhookID |

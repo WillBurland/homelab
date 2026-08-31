@@ -33,18 +33,18 @@ services:
 ## Grouping
 
 1. Identity:
-   1. `image`
-   2. `container_name`
-   3. `mac_address`
+   - `image`
+   - `container_name`
+   - `mac_address`
 2. Shared base: `<<: *common_service`
 3. Metadata: `labels`
 4. Runtime behaviour: `command`
-5. Permissions & access
-   1. `privileged`
-   2. `cap_add`
-   3. `user`
-   4. `group_add`
-   5. `devices`
+5. Permissions & access:
+   - `privileged`
+   - `cap_add`
+   - `user`
+   - `group_add`
+   - `devices`
 6. Startup ordering: `depends_on`
 7. Configuration: `environment`
 8. Runtime monitoring: `healthcheck`

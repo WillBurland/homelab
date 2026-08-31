@@ -24,4 +24,4 @@ When set up, I would likely run these in RAIDZ2, and retire my SATA drives to be
 Redundancy is not a concern here at all, as the SSD pool is just where my apps operate.
 Capacity and speed is the larger concern, as qBittorrent uses most of this space for seeding.
 
-All my Docker apps store their data on this pool, however, this is still not a real concern as the whole Docker data directory is backed up. This is detailed in [backup.md](backup.md).
+All my Docker apps store their data on this pool, however, this is still not a real concern as the whole Docker data directory is backed up. This is detailed in [docs/operations/backup.md](../operations/backup.md).

@@ -8,9 +8,9 @@ My Zerobyte instance has 1 job set up, which is to backup all of my Docker data/
 
 This job runs daily at midnight and upon completion will mirror the repository to a Backblaze B2 bucket, satisfying the 3-2-1 backup rule:
 
-1. Live/original copy (SSD/Apps pool)
-2. 2nd media/device copy (HDD/NAS pool)
-3. Offsite backup copy (Backblaze B2)
+1. Live/original copy (SSD/Apps pool).
+2. 2nd media/device copy (HDD/NAS pool).
+3. Offsite backup copy (Backblaze B2).
 
 The job has a retention policy of 7 daily, 4 weekly and 6 monthly giving a good range of options for when a restoration is required.
 
