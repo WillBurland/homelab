@@ -29,10 +29,20 @@ x-watchtower-pinned: &pinned_version
 
 name: homelab-logging
 services:
+  docker-exporter:
+    image: ghcr.io/davidborzek/docker-exporter:latest
+    container_name: docker-exporter
+    mac_address: "12:01:01:00:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    environment:
+      DOCKER_HOST: tcp://127.0.0.1:2375
+
   grafana:
     image: grafana/grafana:13.0
     container_name: grafana
-    mac_address: "12:01:01:00:00:00"
+    mac_address: "12:02:01:00:00:00"
     <<: *common_service
     labels:
       <<: *monitor_updates_only
@@ -63,10 +73,23 @@ services:
     volumes:
       - ${CONFIG_ROOT}/grafana/data:/var/lib/grafana
 
+  node-exporter:
+    image: ghcr.io/prometheus/node-exporter:v1
+    container_name: node-exporter
+    mac_address: "12:03:01:00:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    command:
+      - --path.rootfs=/host
+    pid: host
+    volumes:
+      - /:/host:ro,rslave
+
   prometheus:
     image: ghcr.io/prometheus/prometheus:v3
     container_name: prometheus
-    mac_address: "12:02:01:00:00:00"
+    mac_address: "12:04:01:00:00:00"
     <<: *common_service
     labels:
       <<: *monitor_updates_only
@@ -91,7 +114,7 @@ services:
   scrutiny:
     image: ghcr.io/analogj/scrutiny:v0-omnibus
     container_name: scrutiny
-    mac_address: "12:03:01:00:00:00"
+    mac_address: "12:05:01:00:00:00"
     <<: *common_service
     labels:
       <<: *monitor_updates_only
@@ -121,7 +144,7 @@ services:
   uptime-kuma:
     image: ghcr.io/louislam/uptime-kuma:2
     container_name: uptime-kuma
-    mac_address: "12:04:01:00:00:00"
+    mac_address: "12:06:01:00:00:00"
     <<: *common_service
     labels:
       <<: *monitor_updates_only
