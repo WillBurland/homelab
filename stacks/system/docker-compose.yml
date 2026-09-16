@@ -84,6 +84,8 @@ services:
       WATCHTOWER_NOTIFICATIONS: "shoutrrr"
       WATCHTOWER_NOTIFICATION_URL: "discord://${WATCHTOWER_DISCORD_WEBHOOK}"
       WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
+      WATCHTOWER_HTTP_API_METRICS: "true"
+      WATCHTOWER_HTTP_API_TOKEN: ${WATCHTOWER_METRICS_TOKEN}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 

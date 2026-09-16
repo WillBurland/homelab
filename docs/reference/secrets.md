@@ -43,3 +43,4 @@ None.
 | Variable                     | Description     |
 |------------------------------|-----------------|
 | `WATCHTOWER_DISCORD_WEBHOOK` | Token@WebhookID |
+| `WATCHTOWER_METRICS_TOKEN`   | -               |

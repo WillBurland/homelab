@@ -2,12 +2,12 @@
 
 ## Server Chassis
 
-| Part      | Specification         | Notes                         |
-|-----------|-----------------------|-------------------------------|
-| CPU       | AMD Ryzen 5 4500      | 6C12T - 65W                   |
-| RAM       | 48GB DDR4 3200 MT/s   | 2 x 8GB & 2 x 16GB            |
-| GPU       | Intel ARC A380        | Used for Jellyfin transcoding |
-| Case      | Codegen 4U CSCG4U600E | 15 x 3.5" drive bays          |
+| Part | Specification         | Notes                         |
+|------|-----------------------|-------------------------------|
+| CPU  | AMD Ryzen 5 4500      | 6C12T - 65W                   |
+| RAM  | 48GB DDR4 3200 MT/s   | 2 x 8GB & 2 x 16GB            |
+| GPU  | Intel ARC A380        | Used for Jellyfin transcoding |
+| Case | Codegen 4U CSCG4U600E | 15 x 3.5" drive bays          |
 
 ## HDD Pool
 

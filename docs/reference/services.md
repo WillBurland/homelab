@@ -2,54 +2,54 @@
 
 ## Applications
 
-| Service             | Description              |
-|---------------------|--------------------------|
-| Homepage            | General homepage         |
-| Immich Server       | Photo storage/server     |
-| Immich ML           | Immich ML inference      |
-| Immich Postgres     | Immich Postgres database |
-| Immich Redis        | Immich job queue/cache   |
-| Syncthing           | File synchronisation     |
-| Zerobyte            | Backup automation        |
+| Service         | Description              |
+|-----------------|--------------------------|
+| Homepage        | General homepage         |
+| Immich Server   | Photo storage/server     |
+| Immich ML       | Immich ML inference      |
+| Immich Postgres | Immich Postgres database |
+| Immich Redis    | Immich job queue/cache   |
+| Syncthing       | File synchronisation     |
+| Zerobyte        | Backup automation        |
 
 ## Authentication
 
-| Service             | Description                 |
-|---------------------|-----------------------------|
-| Authentik Server    | SSO/OIDC identity provider  |
-| Authentik Worker    | Background task processor   |
-| Authentik Postgres  | Authentik Postgres database |
-| Vaultwarden         | Password manager            |
+| Service            | Description                 |
+|--------------------|-----------------------------|
+| Authentik Server   | SSO/OIDC identity provider  |
+| Authentik Worker   | Background task processor   |
+| Authentik Postgres | Authentik Postgres database |
+| Vaultwarden        | Password manager            |
 
 ## Development
 
-| Service             | Description               |
-|---------------------|---------------------------|
-| Forgejo             | Git server & web UI       |
-| Forgejo DB          | Forgejo Postgres database |
+| Service    | Description               |
+|------------|---------------------------|
+| Forgejo    | Git server & web UI       |
+| Forgejo DB | Forgejo Postgres database |
 
 ## Logging
 
-| Service             | Description            |
-|---------------------|------------------------|
-| Grafana             | Monitoring dashboard   |
-| Prometheus          | Monitoring backend     |
-| Scrutiny            | SMART drive monitoring |
-| Uptime Kuma         | Service status page    |
+| Service     | Description            |
+|-------------|------------------------|
+| Grafana     | Monitoring dashboard   |
+| Prometheus  | Monitoring backend     |
+| Scrutiny    | SMART drive monitoring |
+| Uptime Kuma | Service status page    |
 
 ## Media
 
-| Service             | Description               |
-|---------------------|---------------------------|
-| Bazarr              | Subtitle manager          |
-| FileFlows           | Automated media pipelines |
-| Jackett             | Torrent index/RSS manager |
-| Jellyfin            | Media client              |
-| Komga               | Comic/manga client        |
-| qBittorrent         | Torrent client            |
-| Radarr              | Movie manager             |
-| Seerr               | Media request manager     |
-| Sonarr              | TV-Show manager           |
+| Service     | Description               |
+|-------------|---------------------------|
+| Bazarr      | Subtitle manager          |
+| FileFlows   | Automated media pipelines |
+| Jackett     | Torrent index/RSS manager |
+| Jellyfin    | Media client              |
+| Komga       | Comic/manga client        |
+| qBittorrent | Torrent client            |
+| Radarr      | Movie manager             |
+| Seerr       | Media request manager     |
+| Sonarr      | TV-Show manager           |
 
 ## Networking
 
