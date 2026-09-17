@@ -208,10 +208,10 @@ services:
       <<: *auto_update
     environment:
       <<: *common_env
+      LOG_LEVEL: debug
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:5055"]
-      LOG_LEVEL: debug
     ports:
       - ${SEERR_PORT}:5055
     volumes:
