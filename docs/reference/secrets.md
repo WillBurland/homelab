@@ -29,7 +29,11 @@ None.
 
 ## Media
 
-None.
+| Variable         | Description      |
+|------------------|------------------|
+| `BAZARR_API_KEY` | Used for metrics |
+| `RADARR_API_KEY` | Used for metrics |
+| `SONARR_API_KEY` | Used for metrics |
 
 ## Networking
 
