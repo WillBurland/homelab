@@ -167,6 +167,18 @@ services:
       - ${CONFIG_ROOT}/qbittorrent/config:/config
       - ${APPS}:${APPS}
 
+  qbittorrent-exporter:
+    image: ghcr.io/martabal/qbittorrent-exporter:latest
+    container_name: qbittorrent-exporter
+    mac_address: "16:06:01:01:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    environment:
+      <<: *common_env
+      QBITTORRENT_BASE_URL: "http://qbittorrent:8080"
+      QBITTORRENT_API_KEY: "${QBITTORRENT_API_KEY}"
+
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr

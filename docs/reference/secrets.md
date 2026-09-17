@@ -29,11 +29,12 @@ None.
 
 ## Media
 
-| Variable         | Description      |
-|------------------|------------------|
-| `BAZARR_API_KEY` | Used for metrics |
-| `RADARR_API_KEY` | Used for metrics |
-| `SONARR_API_KEY` | Used for metrics |
+| Variable              | Description |
+|-----------------------|-------------|
+| `BAZARR_API_KEY`      | Metrics     |
+| `RADARR_API_KEY`      | Metrics     |
+| `SONARR_API_KEY`      | Metrics     |
+| `QBITTORRENT_API_KEY` | Metrics     |
 
 ## Networking
 
