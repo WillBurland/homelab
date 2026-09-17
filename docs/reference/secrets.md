@@ -25,22 +25,23 @@ None.
 
 | Variable              | Description               |
 |-----------------------|---------------------------|
-| `GRAFANA_AUTH_SECRET` |  Grafana Authentik secret |
+| `GRAFANA_AUTH_SECRET` | Grafana Authentik secret  |
 
 ## Media
 
 | Variable              | Description |
 |-----------------------|-------------|
 | `BAZARR_API_KEY`      | Metrics     |
+| `QBITTORRENT_API_KEY` | Metrics     |
 | `RADARR_API_KEY`      | Metrics     |
 | `SONARR_API_KEY`      | Metrics     |
-| `QBITTORRENT_API_KEY` | Metrics     |
 
 ## Networking
 
 | Variable                  | Description |
 |---------------------------|-------------|
 | `CLOUDFLARE_TUNNEL_TOKEN` | -           |
+| `PIHOLE_PASSWORD`         | Metrics     |
 | `TAILSCALE_AUTHKEY`       | -           |
 
 ## System

@@ -2,8 +2,6 @@
 
 ## Todo Next
 
-- [ ] **DEPLOY** - Exporters for services.
-- [ ] **CONFIG** - Prometheus scraping for all exporters.
 - [ ] **CONFIG** - Grafana dashboards for all Prometheus targets.
 
 ## Future Ideas
@@ -27,3 +25,5 @@
 - [x] **DEPLOY** - Authentik.
 - [x] **MIGRATE** - Cloudflare Zero Trust/OAuth to Authentik OIDC.
 - [x] **CONFIG** - Container healthchecks where not provided in base image.
+- [X] **DEPLOY** - Exporters for relevant services.
+- [X] **CONFIG** - Prometheus scraping for all exporters.

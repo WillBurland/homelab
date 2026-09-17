@@ -108,6 +108,19 @@ services:
     volumes:
       - ${CONFIG_ROOT}/pihole/data:/etc/pihole
 
+  pihole-exporter:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole-exporter
+    mac_address: "1A:04:01:01:00:00"
+    <<: *common_service
+    labels:
+      <<: *pinned_version
+    environment:
+      <<: *common_env
+      PIHOLE_HOSTNAME: "http://pihole:80"
+      PIHOLE_PASSWORD: "${PIHOLE_PASSWORD}"
+      PORT: 9617
+
   tailscale:
     image: tailscale/tailscale:stable
     container_name: tailscale
