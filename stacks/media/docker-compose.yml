@@ -246,7 +246,7 @@ services:
     command: ["sonarr"]
     environment:
       PORT: 9707
-      URL: "http://sonarr:6767"
+      URL: "http://sonarr:8989"
       API_KEY: "${SONARR_API_KEY}"
 
 networks:
