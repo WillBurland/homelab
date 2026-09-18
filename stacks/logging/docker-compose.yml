@@ -37,7 +37,7 @@ services:
     labels:
       <<: *auto_update
     environment:
-      DOCKER_HOST: tcp://127.0.0.1:2375
+      DOCKER_HOST: tcp://docker-proxy:2375
 
   grafana:
     image: grafana/grafana:13.0
