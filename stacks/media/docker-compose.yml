@@ -55,6 +55,9 @@ services:
     labels:
       <<: *auto_update
     command: ["bazarr"]
+    depends_on:
+      bazarr:
+        condition: service_healthy
     environment:
       <<: *common_env
       PORT: 9712
@@ -175,6 +178,9 @@ services:
     <<: *common_service
     labels:
       <<: *auto_update
+    depends_on:
+      qbittorrent:
+        condition: service_healthy
     environment:
       <<: *common_env
       QBITTORRENT_BASE_URL: "http://qbittorrent:8080"
@@ -207,6 +213,9 @@ services:
     labels:
       <<: *auto_update
     command: ["radarr"]
+    depends_on:
+      radarr:
+        condition: service_healthy
     environment:
       <<: *common_env
       PORT: 9708
@@ -258,6 +267,9 @@ services:
     labels:
       <<: *auto_update
     command: ["sonarr"]
+    depends_on:
+      sonarr:
+        condition: service_healthy
     environment:
       <<: *common_env
       PORT: 9707

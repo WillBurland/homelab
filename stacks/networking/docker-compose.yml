@@ -115,6 +115,9 @@ services:
     <<: *common_service
     labels:
       <<: *pinned_version
+    depends_on:
+      pihole:
+        condition: service_healthy
     environment:
       <<: *common_env
       PIHOLE_HOSTNAME: "http://pihole:80"
