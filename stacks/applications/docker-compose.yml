@@ -44,7 +44,6 @@ services:
     volumes:
       - ${CONFIG_ROOT}/homepage/config:/app/config
       - ${NAS}:${NAS}
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   immich-server:
     image: ghcr.io/immich-app/immich-server:v3

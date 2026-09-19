@@ -70,6 +70,7 @@ services:
       <<: *auto_update
     environment:
       <<: *common_env
+      DOCKER_HOST: tcp://docker-proxy-read-only:2375
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD", "curl", "-f", "http://127.0.0.1:5000"]
@@ -79,7 +80,6 @@ services:
       - ${CONFIG_ROOT}/fileflows/data:/app/Data
       - ${CONFIG_ROOT}/fileflows/temp:/temp
       - ${NAS}:${NAS}
-      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   jackett:
     image: lscr.io/linuxserver/jackett:latest

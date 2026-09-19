@@ -29,9 +29,9 @@ x-watchtower-pinned: &pinned_version
 
 name: homelab-system
 services:
-  docker-proxy:
+  docker-proxy-read-write:
     image: ghcr.io/tecnativa/docker-socket-proxy:latest
-    container_name: docker-proxy
+    container_name: docker-proxy-read-write
     mac_address: "1E:01:01:00:00:00"
     <<: *common_service
     labels:
@@ -39,21 +39,35 @@ services:
     environment:
       <<: *common_env
       CONTAINERS: 1
-      SERVICES: 1
-      TASKS: 1
-      POST: 0
+      INFO: 1
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:2375/_ping"]
-    ports:
-      - ${DOCKER_PROXY_PORT}:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  docker-proxy-read-only:
+    image: ghcr.io/tecnativa/docker-socket-proxy:latest
+    container_name: docker-proxy-read-only
+    mac_address: "1E:02:01:00:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    environment:
+      <<: *common_env
+      CONTAINERS: 1
+      IMAGES: 1
+      POST: 1
+    healthcheck:
+      <<: *healthcheck_defaults
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:2375/_ping"]
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
   pacoloco:
     image: ghcr.io/anatol/pacoloco:latest
     container_name: pacoloco
-    mac_address: "1E:02:01:00:00:00"
+    mac_address: "1E:03:01:00:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
@@ -72,7 +86,7 @@ services:
   watchtower:
     image: ghcr.io/nicholas-fedor/watchtower:1
     container_name: watchtower
-    mac_address: "1E:03:01:00:00:00"
+    mac_address: "1E:04:01:00:00:00"
     <<: *common_service
     labels:
       <<: *pinned_version
@@ -86,8 +100,7 @@ services:
       WATCHTOWER_NOTIFICATIONS_LEVEL: "info"
       WATCHTOWER_HTTP_API_METRICS: "true"
       WATCHTOWER_HTTP_API_TOKEN: ${WATCHTOWER_METRICS_TOKEN}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      DOCKER_HOST: tcp://docker-proxy-read-write:2375
 
 networks:
   homelab_network:

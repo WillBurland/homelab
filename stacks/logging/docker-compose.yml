@@ -38,7 +38,7 @@ services:
       <<: *auto_update
     environment:
       <<: *common_env
-      DOCKER_HOST: tcp://docker-proxy:2375
+      DOCKER_HOST: tcp://docker-proxy-read-only:2375
 
   grafana:
     image: grafana/grafana:13.0

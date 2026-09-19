@@ -76,7 +76,6 @@ services:
       AUTHENTIK_SECRET_KEY: ${AUTHENTIK_SECRET_KEY:?secret key required}
     shm_size: 512mb
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
       - ${CONFIG_ROOT}/authentik-worker/data:/data
       - ${CONFIG_ROOT}/authentik-worker/certs:/certs
       - ${CONFIG_ROOT}/authentik-worker/custom-templates:/templates

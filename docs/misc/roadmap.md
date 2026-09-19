@@ -3,11 +3,10 @@
 ## Todo Next
 
 - [ ] **CONFIG** - Grafana dashboards for all Prometheus targets.
+- [ ] **CONFIG** - Remove any unnecessary host port exposure, use Docker DNS when possible.
 
 ## Future Ideas
 
-- [ ] **MIGRATE** - Raw Docker Socket mounts to Docker Socket Proxy container where possible.
-- [ ] **CONFIG** - Remove any unnecessary port exposure, use Docker DNS when possible.
 - [ ] **RESEARCH** - Non-native OIDC integration for services using forward-auth.
 - [ ] **CONFIG** - Separate/restrict Docker networks.
 - [ ] **DEPLOY** - Container new release RSS notifications.
@@ -27,3 +26,4 @@
 - [x] **CONFIG** - Container healthchecks where not provided in base image.
 - [X] **DEPLOY** - Exporters for relevant services.
 - [X] **CONFIG** - Prometheus scraping for all exporters.
+- [X] **MIGRATE** - Raw Docker Socket mounts to Docker Socket Proxy container where possible.
