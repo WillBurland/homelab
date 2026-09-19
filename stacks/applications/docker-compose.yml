@@ -110,6 +110,7 @@ services:
       immich-postgres:
         condition: service_healthy
     environment:
+      <<: *common_env
       DATA_SOURCE_NAME: "postgresql://immich:immich@immich-postgres:5432/immich?sslmode=disable"
 
   immich-redis:
@@ -135,6 +136,7 @@ services:
       immich-redis:
         condition: service_healthy
     environment:
+      <<: *common_env
       REDIS_ADDR: "redis://immich-redis:6379"
 
   syncthing:

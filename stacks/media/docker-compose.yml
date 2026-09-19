@@ -56,6 +56,7 @@ services:
       <<: *auto_update
     command: ["bazarr"]
     environment:
+      <<: *common_env
       PORT: 9712
       URL: "http://bazarr:6767"
       API_KEY: "${BAZARR_API_KEY}"
@@ -207,6 +208,7 @@ services:
       <<: *auto_update
     command: ["radarr"]
     environment:
+      <<: *common_env
       PORT: 9708
       URL: "http://radarr:7878"
       API_KEY: "${RADARR_API_KEY}"
@@ -257,6 +259,7 @@ services:
       <<: *auto_update
     command: ["sonarr"]
     environment:
+      <<: *common_env
       PORT: 9707
       URL: "http://sonarr:8989"
       API_KEY: "${SONARR_API_KEY}"

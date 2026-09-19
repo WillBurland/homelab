@@ -37,6 +37,7 @@ services:
     labels:
       <<: *auto_update
     environment:
+      <<: *common_env
       DOCKER_HOST: tcp://docker-proxy:2375
 
   grafana:
@@ -83,6 +84,8 @@ services:
     command:
       - --path.rootfs=/host
     pid: host
+    environment:
+      <<: *common_env
     volumes:
       - /:/host:ro,rslave
 
