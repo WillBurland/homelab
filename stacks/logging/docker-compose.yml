@@ -98,7 +98,7 @@ services:
       - "--storage.tsdb.path=/prometheus"
       - "--web.enable-admin-api"
       - "--storage.tsdb.retention.time=90d"
-      - "--storage.tsdb.retention.size=15GB"
+      - "--storage.tsdb.retention.size=30GB"
       - "--storage.tsdb.wal-compression"
     environment:
       <<: *common_env
