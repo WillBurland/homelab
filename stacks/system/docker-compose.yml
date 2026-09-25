@@ -39,7 +39,8 @@ services:
     environment:
       <<: *common_env
       CONTAINERS: 1
-      INFO: 1
+      IMAGES: 1
+      POST: 1
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:2375/_ping"]
@@ -56,8 +57,7 @@ services:
     environment:
       <<: *common_env
       CONTAINERS: 1
-      IMAGES: 1
-      POST: 1
+      INFO: 1
     healthcheck:
       <<: *healthcheck_defaults
       test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:2375/_ping"]
