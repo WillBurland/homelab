@@ -124,13 +124,6 @@ services:
     privileged: true
     cap_add:
       - SYS_RAWIO
-    devices:
-      - /dev/sda:/dev/sda
-      - /dev/sdb:/dev/sdb
-      - /dev/sdc:/dev/sdc
-      - /dev/sdd:/dev/sdd
-      - /dev/nvme0n1:/dev/nvme0n1
-      - /dev/nvme1n1:/dev/nvme1n1
     environment:
       <<: *common_env
     healthcheck:
@@ -142,6 +135,7 @@ services:
     volumes:
       - ${CONFIG_ROOT}/scrutiny/config:/config
       - ${CONFIG_ROOT}/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - /dev:/dev:ro
       - /run/udev:/run/udev:ro
 
   uptime-kuma:

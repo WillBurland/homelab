@@ -7,6 +7,7 @@
 
 ## Future Ideas
 
+- [ ] **CONFIG** - Grafana alerts for critical metrics.
 - [ ] **RESEARCH** - Non-native OIDC integration for services using forward-auth.
 - [ ] **CONFIG** - Separate/restrict Docker networks.
 - [ ] **DEPLOY** - Container new release RSS notifications.

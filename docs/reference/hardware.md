@@ -11,15 +11,13 @@
 
 ## HDD Pool
 
-3 x 6TB Seagate SATA HDDs running in RAIDZ1.
+6 x 6TB refurbished SAS HDDs running in RAIDZ2. In order to interface with the drives I have a LSI 9300-16i SAS HBA.
 
-I have 6 x 6TB refurbished SAS drives and a LSI 9300-16I SAS HBA, but haven't got around to installing these yet.
-I probably would have to upgrade the case fans to support these as they seemed to run quite hot in my testing, but this isn't a priority as I'm not short on space yet.
-When set up, I would likely run these in RAIDZ2, and retire my SATA drives to be used as cold storage or emergency swaps in case of a SAS drive failure.
+I have 3 x 6TB Seagate SATA HDDs acting as cold spares or potential cold storage/backup, which used to be used as my main HDD Pool.
 
 ## SSD Pool
 
-1 x 512GB NVMe + 1 x 2TB NVMe, running in stripe.
+1 x 2TB NVMe.
 
 Redundancy is not a concern here at all, as the SSD pool is just where my apps operate.
 Capacity and speed is the larger concern, as qBittorrent uses most of this space for seeding.
