@@ -186,10 +186,25 @@ services:
       QBITTORRENT_BASE_URL: "http://qbittorrent:8080"
       QBITTORRENT_API_KEY: "${QBITTORRENT_API_KEY}"
 
+  qbittorrent-cleaner:
+    image: forgejo.willburland.com/willburland/qbittorrent-cleaner:latest
+    container_name: qbittorrent-cleaner
+    mac_address: "16:07:01:00:00:00"
+    <<: *common_service
+    labels:
+      <<: *auto_update
+    depends_on:
+      qbittorrent:
+        condition: service_healthy
+    environment:
+      <<: *common_env
+    volumes:
+      - ${CONFIG_ROOT}/qbittorrent-cleaner/config:/config
+
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    mac_address: "16:07:01:00:00:00"
+    mac_address: "16:08:01:00:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
@@ -208,7 +223,7 @@ services:
   radarr-exporter:
     image: ghcr.io/onedr0p/exportarr:v2
     container_name: radarr-exporter
-    mac_address: "16:07:01:01:00:00"
+    mac_address: "16:08:01:01:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
@@ -225,7 +240,7 @@ services:
   seerr:
     image: ghcr.io/seerr-team/seerr:v3
     container_name: seerr
-    mac_address: "16:08:01:00:00:00"
+    mac_address: "16:09:01:00:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
@@ -243,7 +258,7 @@ services:
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    mac_address: "16:09:01:00:00:00"
+    mac_address: "16:0A:01:00:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
@@ -262,7 +277,7 @@ services:
   sonarr-exporter:
     image: ghcr.io/onedr0p/exportarr:v2
     container_name: sonarr-exporter
-    mac_address: "16:09:01:01:00:00"
+    mac_address: "16:0A:01:01:00:00"
     <<: *common_service
     labels:
       <<: *auto_update
