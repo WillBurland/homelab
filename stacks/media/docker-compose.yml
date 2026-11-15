@@ -104,12 +104,12 @@ services:
       - ${CONFIG_ROOT}/jackett/config:/config
 
   jellyfin:
-    image: lscr.io/linuxserver/jellyfin:10.11.11
+    image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     mac_address: "16:04:01:00:00:00"
     <<: *common_service
     labels:
-      <<: *pinned_version
+      <<: *auto_update
     group_add:
       - video
       - "107"
