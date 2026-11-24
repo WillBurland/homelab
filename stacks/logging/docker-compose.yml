@@ -82,7 +82,9 @@ services:
     labels:
       <<: *auto_update
     command:
-      - --path.rootfs=/host
+      - "--path.rootfs=/host"
+      - "--path.sysfs=/host/sys"
+      - "--path.procfs=/host/proc"
     pid: host
     environment:
       <<: *common_env
